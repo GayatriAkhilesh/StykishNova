@@ -38,6 +38,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
           styles.sectionTitle,
           {
             color: isDarkMode ? Colors.white : Colors.black,
+            fontFamily:'Poppins-SemiBold',
           },
         ]}>
         {title}
@@ -47,6 +48,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
           styles.sectionDescription,
           {
             color: isDarkMode ? Colors.light : Colors.dark,
+            fontFamily:'Poppins-Regular',
           },
         ]}>
         {children}
