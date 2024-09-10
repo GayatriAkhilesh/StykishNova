@@ -6,22 +6,51 @@ const style = (width, height) =>
       height: height,
       padding: 15,
     },
+    removeView:{
+      position:'absolute',
+      top:-10,
+      right:6,
+      overflow:'hidden',
+    },
+    remove:{
+      width:20,
+      height:20,
+      resizeMode:'contain',
+    },
     productView: {
       alignSelf: 'center',
       borderRadius: 15,
-      overflow: 'hidden',
       flexDirection: 'row',
       alignItems: 'center',
       width: width * 0.95,
       padding: 15,
       backgroundColor: '#fff',
       marginTop: 10,
+      marginBottom:15,
     },
     cartIcon: {
       width: 35,
       height: 35,
       resizeMode: 'contain',
       marginRight: 15,
+    },
+    cartCount:{
+      position:'absolute',
+      right:10,
+      top:-10,
+      width:23,
+      height:23,
+      backgroundColor: '#ee1b4d',
+      justifyContent:'center',
+      alignItems:'center',
+      borderRadius:10,
+      overflow:'hidden',
+      zIndex:9,
+    },
+    count:{
+      fontFamily:'Poppins-SemiBold',
+      fontSize:14,
+      color:'#fff'
     },
     productImage: {
       width: 90,
@@ -40,6 +69,11 @@ const style = (width, height) =>
     title: {
       fontFamily: 'Poppins-Bold',
       fontSize: 18,
+      color: '#000',
+    },
+    price:{
+      fontFamily: 'Poppins-SemiBold',
+      fontSize: 14,
       color: '#000',
     },
     desc: {

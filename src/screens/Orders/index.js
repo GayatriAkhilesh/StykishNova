@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './style';
 import {Text, View, Image, FlatList, TouchableOpacity} from 'react-native';
 import {useDimensionContext} from '../../context';
 import CustomSearch from '../../components/CustomSearch';
+import CommonHeaderLeft from '../../components/CommonHeaderLeft';
+import { useNavigation } from '@react-navigation/native';
 
 const Orders = () => {
+  const navigation = useNavigation();
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <CommonHeaderLeft />,
+    });
+  }, []);
 
   const ordersArray = [
     {
@@ -70,8 +79,7 @@ const Orders = () => {
                   <Text style={responsiveStyle.orderId}>
                     ID: {item.orderId}
                   </Text>
-                  <Text
-                    style={responsiveStyle.orderedText}>
+                  <Text style={responsiveStyle.orderedText}>
                     Ordered on:{item.orderDate}
                   </Text>
                   <Text style={responsiveStyle.address}>{item.address1}</Text>

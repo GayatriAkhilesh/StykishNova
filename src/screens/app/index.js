@@ -27,18 +27,6 @@ const AppDrawer = props => {
       initialRouteName="MyFooter"
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
-        headerLeft: props => {
-          return (
-            <TouchableOpacity
-              style={{paddingLeft: 15}}
-              onPress={() => props.navigation.goBack()}>
-              <Image
-                source={require('../../assets/images/left-arrow-header.png')}
-                style={{width: 25, height: 25, resizeMode: 'contain'}}
-              />
-            </TouchableOpacity>
-          );
-        },
         headerTitleAlign: 'left',
         headerTitleStyle: {fontFamily: 'Poppins-SemiBold', fontSize: 22},
       }}>

@@ -12,15 +12,22 @@ import {
 } from 'react-native';
 import CustomSearch from '../../components/CustomSearch';
 import {useDimensionContext} from '../../context';
+import CommonHeaderLeft from '../../components/CommonHeaderLeft';
+import { useNavigation } from '@react-navigation/native';
 
 const Categories = () => {
   const dimension = useDimensionContext();
+  const navigation = useNavigation();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <CommonHeaderLeft />,
+    });
+
     getCategories();
     getProducts();
   }, []);
@@ -54,7 +61,7 @@ const Categories = () => {
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
-          console.log('Its empty');
+                   console.log('Its empty');
         } else {
           const result = [];
           snapshot.docs.forEach(doc => {
@@ -122,13 +129,17 @@ const Categories = () => {
                   return (
                     <TouchableOpacity style={responsiveStyle.proContaioner}>
                       <View style={responsiveStyle.imageBg}>
-                      <Image
-                        source={{uri: item.image}}
-                        style={responsiveStyle.proImage}
-                      />
+                        <Image
+                          source={{uri: item.image}}
+                          style={responsiveStyle.proImage}
+                        />
                       </View>
-                      <Text style={responsiveStyle.catProName}>{item.name}</Text>
-                      <Text style={responsiveStyle.catPrice}>₹ {item.price}</Text>
+                      <Text style={responsiveStyle.catProName}>
+                        {item.name}
+                      </Text>
+                      <Text style={responsiveStyle.catPrice}>
+                        ₹ {item.price}
+                      </Text>
                     </TouchableOpacity>
                   );
                 }}
