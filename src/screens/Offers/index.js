@@ -1,16 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './style';
 import {FlatList, ScrollView, Text, View} from 'react-native';
 import CustomSearch from '../../components/CustomSearch';
 import {useDimensionContext} from '../../context';
+import {useNavigation} from '@react-navigation/native';
+import CommonHeaderLeft from '../../components/CommonHeaderLeft';
 
 const Offers = () => {
   const dimensions = useDimensionContext();
+  const navigation = useNavigation();
+
   const responsiveStyle = style(
     dimensions.windowWidth,
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
+
+  
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <CommonHeaderLeft />,
+    });
+  }, []);
+
   const OffersArray = [
     {
       offer: '41',

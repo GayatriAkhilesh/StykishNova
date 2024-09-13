@@ -18,7 +18,7 @@ import Offers from '../Offers';
 import Orders from '../Orders';
 import Wishlist from '../Wishlist';
 import Account from '../Account';
-import {Image, TouchableOpacity} from 'react-native';
+import style from './style';
 
 const Drawer = createDrawerNavigator();
 const AppDrawer = props => {
@@ -28,7 +28,7 @@ const AppDrawer = props => {
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerTitleAlign: 'left',
-        headerTitleStyle: {fontFamily: 'Poppins-SemiBold', fontSize: 22},
+        headerTitleStyle:style.title,
       }}>
       <Drawer.Screen
         name="MyFooter"
@@ -49,20 +49,8 @@ const AppFooter = () => {
     <Footer.Navigator
       tabBar={props => <CustomFooter {...props} />}
       screenOptions={{
-        headerLeft: props => {
-          return (
-            <TouchableOpacity
-              style={{paddingLeft: 15}}
-              onPress={() => props.navigation.goBack()}>
-              <Image
-                source={require('../../assets/images/left-arrow-header.png')}
-                style={{width: 25, height: 25, resizeMode: 'contain'}}
-              />
-            </TouchableOpacity>
-          );
-        },
         headerTitleAlign: 'left',
-        headerTitleStyle: {fontFamily: 'Poppins-SemiBold', fontSize: 22},
+        headerTitleStyle: style.title,
       }}>
       <Footer.Screen
         name="Home"

@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './style';
 import {Image, ScrollView, Text, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 import OrderTotal from './components/OrderTotal';
 import CommonButton from '../../components/CommonButton';
+import { useNavigation } from '@react-navigation/native';
+import CommonHeaderLeft from '../../components/CommonHeaderLeft';
 
 const Cart = () => {
   const dimensions = useDimensionContext();
+  const navigation = useNavigation();
   const responsiveStyle = style(
     dimensions.windowWidth,
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
+
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <CommonHeaderLeft />,
+    });
+  }, []);
+
+
   return (
     <ScrollView>
     <View style={responsiveStyle.container}>
