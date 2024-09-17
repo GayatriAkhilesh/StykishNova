@@ -4,21 +4,35 @@ const style = (width, height) =>
   StyleSheet.create({
     container: {
       height: height,
-      padding: 15,
+      padding: 20,
     },
-    head: {fontFamily: 'Poppins-Black', fontSize: 25, color: '#000', textAlign:'center',},
-    userImage:{
-      alignSelf:'center',
-      justifyContent:'center',
-      alignItems:'center',
-      marginVertical:10,
+    head: {
+      fontFamily: 'Poppins-Black',
+      fontSize: 25,
+      color: '#ee1b4d',
+      textAlign: 'center',
     },
-    image:{
-      width:width*0.3,
-      height:width*0.3,
-      borderRadius:width*0.15,
+    userImage: {
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical: 10,
     },
-
+    image: {
+      width: width * 0.4,
+      height: width * 0.4,
+      borderRadius: width * 0.2,
+    },
+    edit: {
+      width: 30,
+      height: 30,
+      resizeMode: 'contain',
+    },
+    editTouch: {
+      position: 'absolute',
+      right:6,
+      bottom: 2,
+    },
   });
 
 export default style;

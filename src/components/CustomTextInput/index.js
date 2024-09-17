@@ -26,7 +26,7 @@ const CustomTextInput = props => {
       }
   return (
     <View style={style.container}>
-      <TextInput
+      <TextInput   
         style={style.textInput}
         placeholder={placeholder}
         placeholderTextColor={'#e9869e'}
