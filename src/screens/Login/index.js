@@ -102,12 +102,12 @@ const Login = () => {
   return (
     <View style={responsiveStyle.container}>
       <Image
-        source={require('../../assets/images/Login-background.jpg')}
+        source={require('../../assets/images/new-doodle-bg-login.jpg')}
         style={responsiveStyle.topBg}
       />
       <ScrollView style={responsiveStyle.ScrollView}>
         <Image
-          source={require('../../assets/images/writtenlogo-final.jpg')}
+          source={require('../../assets/images/writtenlogo-final-removebg-preview.png')}
           style={responsiveStyle.logo}
         />
         <Text style={responsiveStyle.logintxt}>Login Account</Text>
@@ -149,7 +149,7 @@ const Login = () => {
           type="secondary"
           handleButtonPress={handleGoToLoginPhone}
           buttonText={'Sign In with Phone'}
-          icon={require('../../assets/images/smartphone-pink.png')}
+          icon={require('../../assets/images/smartphone.png')}
         />
         <CustomButton
           type="secondary"

@@ -59,12 +59,12 @@ const ProductScroll = () => {
             return (
               <View
                 style={{
-                  width: 160,
-                  height: 310,
+                  width: 135,
+                  height: 280,
                   padding: 10,
-                  marginLeft: 15,
+                  marginLeft: 10,
                   marginVertical: 15,
-                  borderRadius: 10,
+                  borderRadius: 5,
                   borderWidth: 1,
                   borderColor: '#ec97ab',
                 }}>
@@ -89,8 +89,8 @@ const ProductScroll = () => {
                 />
                 <Text
                   style={{
-                    fontFamily: 'Poppins-Bold',
-                    fontSize: 20,
+                    fontFamily: 'Poppins-SemiBold',
+                    fontSize: 16,
                     color: '#000',
                   }}
                   numberOfLines={1}>
@@ -99,7 +99,7 @@ const ProductScroll = () => {
                 <Text
                   style={{
                     fontFamily: 'Poppins-Regular',
-                    fontSize: 16,
+                    fontSize: 12,
                     color: '#000',
                   }}
                   numberOfLines={2}>
@@ -115,21 +115,21 @@ const ProductScroll = () => {
                   <Text
                     style={{
                       fontFamily: 'Poppins-Regular',
-                      fontSize: 20,
+                      fontSize: 15,
                       color: '#000',
                     }}>
-                    {item.price}
+                    ₹{item.price}
                   </Text>
                   <View
                     style={{
-                      padding: 5,
-                      backgroundColor: '#ee1b4d',
+                      padding: 3,
+                      backgroundColor: '#e3256b',
                       borderRadius: 5,
                     }}>
                     <Text
                       style={{
                         fontFamily: 'Poppins-Bold',
-                        fontSize: 20,
+                        fontSize: 16,
                         color: '#fff',
                       }}>
                       +

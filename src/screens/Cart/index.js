@@ -74,8 +74,8 @@ const Cart = () => {
             <Text
               style={{
                 fontFamily: 'Poppins-SemiBold',
-                color: '#ee1b4d',
-                fontSize: 50,
+                color: '#e3256b',
+                fontSize: 40,
                 marginTop: -7,
                 marginLeft: -4,
               }}>
@@ -85,7 +85,7 @@ const Cart = () => {
               <Text
                 style={{
                   fontFamily: 'Poppins-Regular',
-                  color: '#ee1b4d',
+                  color: '#e3256b',
                   fontSize: 14,
                   marginTop: 10,
                 }}>
@@ -94,8 +94,8 @@ const Cart = () => {
               <Text
                 style={{
                   fontFamily: 'Poppins-Regular',
-                  color: '#ee1b4d',
-                  fontSize: 14,
+                  color: '#e3256b',
+                  fontSize: 12,
                 }}>
                 OFF
               </Text>
@@ -115,7 +115,7 @@ const Cart = () => {
                   color: '#000',
                   fontSize: 12,
                 }}>
-               For Order Above 2500 Rupees only
+               For Order Above 2500            Rupees only
               </Text>
             </View>
           </View>
@@ -155,7 +155,7 @@ const Cart = () => {
               padding: 5,
               justifyContent: 'center',
               borderRadius: 15,
-              backgroundColor: '#ee1b4d',
+              backgroundColor: '#e3256b',
               overflow: 'hidden',
               marginRight: 7,
               marginLeft: -5,

@@ -8,13 +8,13 @@ const style = (width, height) =>
       alignItems: 'center',
       justifyContent: 'space-between',
     },
-    headText: {fontFamily: 'Poppins-Bold', fontSize: 22, color: '#000'},
+    headText: {fontFamily: 'Poppins-SemiBold', fontSize: 20, color: '#000'},
     contentText: {
       fontFamily: 'Poppins-Regular',
-      fontSize: 16,
+      fontSize: 15,
       color: '#000',
     },
-    seeAll: {fontFamily: 'Poppins-Regular', fontSize: 16, color: '#000'},
+    seeAll: {fontFamily: 'Poppins-Regular', fontSize: 14, color: '#000'},
   });
 
 export default style;

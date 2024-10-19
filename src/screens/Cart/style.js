@@ -8,7 +8,7 @@ const style = (width, height, isPortrait) =>
     },
     productView: {
       width: '100%',
-      padding: 10,
+      padding: 8,
       marginRight: 15,
       marginVertical: 15,
       borderRadius: 10,
@@ -18,8 +18,8 @@ const style = (width, height, isPortrait) =>
       overflow: 'hidden',
     },
     productImage: {
-      width: 120,
-      height: 120,
+      width: 110,
+      height: 110,
       resizeMode: 'contain',
       alignSelf: 'center',
       marginVertical: 10,
@@ -27,17 +27,17 @@ const style = (width, height, isPortrait) =>
     },
     productNameView: {
       borderLeftWidth: 1,
-      paddingHorizontal: 12,
+      paddingHorizontal: 8,
       marginRight: 100,
     },
     name: {
-      fontFamily: 'Poppins-Bold',
-      fontSize: 20,
+      fontFamily: 'Poppins-SemiBold',
+      fontSize: 18,
       color: '#000',
     },
     dis: {
       fontFamily: 'Poppins-Regular',
-      fontSize: 16,
+      fontSize: 12,
       color: '#000',
     },
     priceView: {
@@ -52,18 +52,18 @@ const style = (width, height, isPortrait) =>
     },
     price: {
       fontFamily: 'Poppins-SemiBold',
-      fontSize: 18,
+      fontSize: 16,
       color: '#000',
     },
     offView: {
       padding: 5,
       borderRadius: 15,
-      backgroundColor: '#ee1b4d',
-      marginHorizontal: 10,
+      backgroundColor: '#e3256b',
+      marginHorizontal: 8,
     },
     offText: {
       fontFamily: 'Poppins-SemiBold',
-      fontSize: 16,
+      fontSize: 14,
       color: '#fff',
       marginHorizontal: 10,
     },
@@ -79,15 +79,15 @@ const style = (width, height, isPortrait) =>
     },
     quantityText1: {
       fontFamily: 'Poppins-SemiBold',
-      fontSize: 16,
+      fontSize: 14,
       color: '#000',
-      marginHorizontal: 6,
+      marginHorizontal: 5,
     },
     quantityText2: {
       fontFamily: 'Poppins-SemiBold',
-      fontSize: 18,
-      color: '#ee1b4d',
-      marginHorizontal: 6,
+      fontSize: 16,
+      color: '#e3256b',
+      marginHorizontal: 5,
     },
     renderView: {
       flexDirection: 'row',

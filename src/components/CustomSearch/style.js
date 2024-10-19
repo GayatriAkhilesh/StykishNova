@@ -15,13 +15,13 @@ const style = (width, height) =>
     },
     search: {
       borderWidth: 1,
-      borderColor: '#ec97ab',
-      backgroundColor: '#fbeaee',
+      borderColor: '#59515e',
+      backgroundColor: '#fff',
       justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'row',
-      borderRadius: 10,
-      padding: 2,
+      borderRadius: 6,
+      paddingHorizontal: 5,
       width: width * 0.95,
     },
     newStyle:{
@@ -36,13 +36,13 @@ const style = (width, height) =>
       width: width * 0.775,
     },
     searchIcon: {
-      width: 20,
-      height: 20,
+      width: 17,
+      height: 17,
       resizeMode: 'contain',
     },
     textInput: {
       fontFamily: 'Poppins-Regular',
-      fontSize: 15,
+      fontSize: 14,
       width:width * 0.60,
       marginLeft:width * 0.012,
       color:'#3e3d53'
@@ -54,7 +54,7 @@ const style = (width, height) =>
     filter:{
       fontFamily:'Poppins-Regular',
       fontSize:17,
-      color:'#ee1b4d',
+      color:'#e3256b',
     },
   });
 

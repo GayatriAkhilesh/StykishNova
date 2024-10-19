@@ -24,36 +24,36 @@ const OrderTotal = () => {
           <Text
             style={{
               fontFamily: 'Poppins-Regular',
-              fontSize: 16,
+              fontSize: 14,
               color: '#000',
-              lineHeight: 30,
+              lineHeight: 25,
             }}>
             ₹ 2879.00
           </Text>
           <Text
             style={{
               fontFamily: 'Poppins-Regular',
-              fontSize: 16,
+              fontSize: 14,
               color: 'green',
-              lineHeight: 30,
+              lineHeight: 25,
             }}>
             ₹ 0.00
           </Text>
           <Text
             style={{
               fontFamily: 'Poppins-Regular',
-              fontSize: 16,
-              color: '#ee1b4d',
-              lineHeight: 30,
+              fontSize: 14,
+              color: '#e3256b',
+              lineHeight: 25,
             }}>
             Apply Coupon
           </Text>
           <Text
             style={{
               fontFamily: 'Poppins-Regular',
-              fontSize: 16,
+              fontSize: 14,
               color: '#000',
-              lineHeight: 30,
+              lineHeight: 25,
             }}>
             ₹ 50.00
           </Text>
@@ -67,7 +67,7 @@ const OrderTotal = () => {
         }}>
         <Text
           style={responsiveStyle.total}>
-          Order Details
+          Order Total
         </Text>
         <Text
           style={responsiveStyle.total}>

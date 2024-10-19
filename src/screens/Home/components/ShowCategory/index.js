@@ -1,4 +1,4 @@
-import {FlatList, Image, Text, View} from 'react-native';
+import {FlatList, Image, ImageBackground, Text, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import style from './style';
 import {useDimensionContext} from '../../../../context';
@@ -36,29 +36,32 @@ const ShowCategory = () => {
       });
   };
 
-
   return (
     <View style={responsiveStyle.container}>
-      <Text style={responsiveStyle.head}>Shop by Category</Text>
-      <FlatList
-        data={categories}
-        numColumns={4}
-        contentContainerStyle={responsiveStyle.flatList}
-        keyExtractor={(item, index) => String(index)}
-        renderItem={({item, index}) => {
-          return (
-            <View style={responsiveStyle.innerView}>
-              <View style={responsiveStyle.imageView}>
-                <Image
-                  style={responsiveStyle.image}
-                  source={{uri: item.image}}
-                />
+      <ImageBackground
+        source={require('../../../../assets/images/pastel-bg.jpg')}
+        style={responsiveStyle.backGround}>
+        <Text style={responsiveStyle.head}>Shop by Category</Text>
+        <FlatList
+          data={categories}
+          numColumns={4}
+          contentContainerStyle={responsiveStyle.flatList}
+          keyExtractor={(item, index) => String(index)}
+          renderItem={({item, index}) => {
+            return (
+              <View style={responsiveStyle.innerView}>
+                <View style={responsiveStyle.imageView}>
+                  <Image
+                    style={responsiveStyle.image}
+                    source={{uri: item.image}}
+                  />
+                </View>
+                <Text style={responsiveStyle.itemName}>{item.name}</Text>
               </View>
-              <Text style={responsiveStyle.itemName}>{item.name}</Text>
-            </View>
-          );
-        }}
-      />
+            );
+          }}
+        />
+      </ImageBackground>
     </View>
   );
 };

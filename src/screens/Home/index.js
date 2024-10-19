@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './style';
-import {ScrollView, Text, View} from 'react-native';
+import {ImageBackground, ScrollView, Text, View} from 'react-native';
 import CommonHeader from '../../components/CommonHeader';
 import CustomSearch from '../../components/CustomSearch';
 import Banner from '../../components/Banner';

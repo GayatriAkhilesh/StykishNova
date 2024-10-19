@@ -7,7 +7,7 @@ const style = (width, height, isPortrait) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-around',
-      backgroundColor: '#ee1b4d',
+      backgroundColor: '#e3256b',
     },
     touchContainer: {justifyContent: 'center', alignItems: 'center'},
     iconStyle: {
@@ -41,7 +41,7 @@ const style = (width, height, isPortrait) =>
       zIndex:9,
     },
     count: {
-      color:'#ee1b4d',
+      color:'#e3256b',
       fontFamily:'Poppins-SemiBold',
       fontSize:14,
       textAlign:'center'

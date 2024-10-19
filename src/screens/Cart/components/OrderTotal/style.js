@@ -6,27 +6,26 @@ const style = (width, height, isPortrait) =>
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginVertical: 15,
         borderBottomColor: '#000',
         borderBottomWidth: 1,
       },
       head:{
-        fontFamily: 'Poppins-Bold',
+        fontFamily: 'Poppins-SemiBold',
         fontSize: 20,
         color: '#000',
         lineHeight: 50,
       },
       content:{
         fontFamily: 'Poppins-Regular',
-        fontSize: 16,
+        fontSize: 14,
         color: '#000',
-        lineHeight: 30,
+        lineHeight: 25,
       },
       endContent:{
         fontFamily: 'Poppins-Regular',
-        fontSize: 16,
+        fontSize: 14,
         color: '#000',
-        lineHeight: 30,
+        lineHeight: 25,
         marginBottom: 10,
       },
       headEnd:{
@@ -37,7 +36,7 @@ const style = (width, height, isPortrait) =>
       },
       total:{
         fontFamily: 'Poppins-SemiBold',
-        fontSize: 20,
+        fontSize: 18,
         color: '#000',
         lineHeight: 50,
       }

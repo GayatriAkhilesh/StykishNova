@@ -16,19 +16,7 @@ const style = (width, height) =>
       justifyContent:'center',
       alignItems:'center',
     },
-    touch: {
-      backgroundColor: '#481f01',
-      padding: 6,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width:width*0.25,
-      marginTop:width*0.1,
-    },
-    touchText: {
-        color:'white',
-        fontFamily:'Poppins-SemiBold',
-        fontSize:14,
-    },
+    
   });
 
 export default style;

@@ -121,12 +121,12 @@ const SignUp = () => {
   return (
     <View style={responsiveStyle.container}>
       <Image
-        source={require('../../assets/images/Login-background.jpg')}
+        source={require('../../assets/images/new-doodle-bg-login.jpg')}
         style={responsiveStyle.topBg}
       />
       <ScrollView style={responsiveStyle.ScrollView}>
         <Image
-          source={require('../../assets/images/writtenlogo-final.jpg')}
+          source={require('../../assets/images/writtenlogo-final-removebg-preview.png')}
           style={responsiveStyle.logo}
         />
         <Text style={responsiveStyle.logintxt}>Sign Up Account</Text>

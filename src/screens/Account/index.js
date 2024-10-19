@@ -13,10 +13,19 @@ const Account = () => {
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
 
-  const [fName, setFName] = useState('');
+  const [fName, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phNumber, setPhNumber] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+
+  const [fNameError, setFnameError] = useState('');
+  const [lnameError, setLnameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [phNumberError, setPhNumberError] = useState('');
+
   const [modal, setModal] = useState(false);
   const [modalChoose, setModalChoose] = useState(false);
-  const [profileImage, setProfileImage] = useState('');
 
   useEffect(() => {
     navigation.setOptions({
@@ -63,6 +72,57 @@ const Account = () => {
     setModal(!modal);
   };
 
+  const validateFirstName = () => {
+    if (fName.trim === '') {
+      setFnameError('First Name is required.');
+      return false;
+    } else if (!/^[A-Za-z]+$/.test(fName)) {
+      setFnameError('First Name should contain only alphabets. ');
+      return false;
+    } else {
+      setFnameError('');
+      return true;
+    }
+  };
+
+  const validateLastName = () => {
+    if (lname.trim === '') {
+      setLnameError('Last Name is required.');
+      return false;
+    } else if (!/^[A-Za-z]+$/.test(lname)) {
+      setLnameError('Last Name should contain only alphabets. ');
+      return false;
+    } else {
+      setLnameError('');
+      return true;
+    }
+  };
+
+  const validateEmail = () => {
+    if (email.trim === '') {
+      setEmailError('Email is required.');
+      return false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError('Invalid email address.');
+      return false;
+    } else {
+      setEmailError('');
+      return true;
+    }
+  };
+
+  const validatePhoneNumber = () => {
+    if (phNumber.trim === '') {
+      setPhNumberError('Phone Number is required. ');
+      return false;
+    } else if (!/^\d{10}$/.test(phNumber)) {
+      setPhNumberError('Phone number should be 10 digits.');
+    } else {
+      setPhNumberError('');
+      return true;
+    }
+  };
+
   const handleUpdateProfile = () => {};
   return (
     <View style={responsiveStyle.container}>
@@ -93,16 +153,16 @@ const Account = () => {
         placeholder="First Name"
       />
       <CustomTextInput
-        handleText={text => setFname(text)}
+        handleText={text => setLname(text)}
         placeholder="Last Name"
       />
       <CustomTextInput
         type="email"
-        handleText={text => setFname(text)}
+        handleText={text => setEmail(text)}
         placeholder="Email Address"
       />
       <CustomTextInput
-        handleText={text => setFname(text)}
+        handleText={text => setPhNumber(text)}
         placeholder="Mobile Number"
       />
       <CustomButton
@@ -134,12 +194,13 @@ const Account = () => {
 
       <Modal
         visible={modalChoose}
-        onRequestClose={() => setModalChoose(false)} transparent>
-        <View>
+        onRequestClose={() => setModalChoose(false)}
+        transparent>
+        <View style={responsiveStyle.chooseOptions}>
           <View style={responsiveStyle.chooseView}>
             <TouchableOpacity
               onPress={() => setModalChoose(false)}
-              style={responsiveStyle.close}>
+              style={responsiveStyle.closeOptions}>
               <Image
                 source={require('../../assets/images/close.png')}
                 style={responsiveStyle.edit}

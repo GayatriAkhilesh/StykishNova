@@ -4,8 +4,8 @@ const style = (width, height, isPortrait) =>
   StyleSheet.create({
     container:{
         borderRadius:15,
-        backgroundColor:'#ee1b4d',
-        padding:15,
+        backgroundColor:'#e3256b',
+        padding:12,
         width: width* 0.9,
         justifyContent:'center',
         alignItems:'center',
@@ -14,7 +14,7 @@ const style = (width, height, isPortrait) =>
     text:{
         color:'#fff',
         fontFamily:'Poppins-SemiBold',
-        fontSize:22,
+        fontSize:20,
     }
   });
 

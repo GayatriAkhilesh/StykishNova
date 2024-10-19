@@ -64,13 +64,13 @@ const style = (width, height) =>
     },
     imageBg: {
       backgroundColor: '#fff',
-      padding: 10,
+      padding: 8,
       justifyContent: 'center',
       borderRadius: 15,
     },
     catProName: {
-      fontFamily: 'Poppins-Bold',
-      fontSize: 18,
+      fontFamily: 'Poppins-SemiBold',
+      fontSize: 16,
       textAlign: 'center',
       padding: 2,
       color: '#231709',

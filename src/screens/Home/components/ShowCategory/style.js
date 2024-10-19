@@ -3,7 +3,10 @@ import {StyleSheet} from 'react-native';
 const style = (width, height) =>
   StyleSheet.create({
     container: {
-      margin: 15,
+      margin: 10,
+    },
+    backGround:{
+
     },
     head: {
       fontFamily: 'Poppins-Bold',
@@ -19,7 +22,7 @@ const style = (width, height) =>
     innerView: {
       justifyContent:'center',
       alignItems:'center',
-      marginRight: 10,
+      marginRight: 6,
       marginBottom: 10,
     },
     itemName: {

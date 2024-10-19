@@ -15,7 +15,7 @@ const style = (width, height) =>
     ScrollView:{
         flex:1,
         backgroundColor:'#f8f8f8',
-        marginTop:-width * 0.1,
+        marginTop:-width * 0.01,
         borderTopRightRadius:width * 0.05,
         borderTopLeftRadius:width * 0.05,
         overflow:'hidden',
@@ -29,7 +29,7 @@ const style = (width, height) =>
     logintxt:{
         marginLeft:width * 0.01 ,
         fontFamily:'Poppins-Regular',
-        fontSize:20,
+        fontSize:19,
         color:'#48494b'
     },
     createNew:{

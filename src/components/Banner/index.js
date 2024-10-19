@@ -4,7 +4,6 @@ import style from './style';
 import {
   FlatList,
   ImageBackground,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -54,13 +53,13 @@ const Banner = () => {
         keyExtractor={(item, index) => String(index)}
         renderItem={({item, index}) => {
           return (
-            <ImageBackground
-              source={{uri: item.image}}
-              style={responsiveStyle.banner}>
+            
               <TouchableOpacity style={responsiveStyle.touch}>
-                <Text style={responsiveStyle.touchText}>Shop now</Text>
+               <ImageBackground
+              source={{uri: item.image}}
+              style={responsiveStyle.banner}></ImageBackground>
               </TouchableOpacity>
-            </ImageBackground>
+            
           );
         }}
       />

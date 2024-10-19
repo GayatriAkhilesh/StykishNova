@@ -7,7 +7,7 @@ const style = (width, height, isPortrait) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       height: isPortrait? width * 0.19 : width*0.08,
-      backgroundColor: '#FAF5EF',
+      backgroundColor: '#fff',
       marginTop: -7,
       marginLeft: -4,
       marginRight: -4,
@@ -20,7 +20,7 @@ const style = (width, height, isPortrait) =>
     },
     sideIcon: {
       resizeMode: 'contain',
-      height:isPortrait? width * 0.11 : width*0.050,
+      height:isPortrait? width * 0.115 : width*0.050,
       width: isPortrait? width * 0.15 : width*0.09,
       marginTop: width * 0.016,
     },

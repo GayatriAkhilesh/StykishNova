@@ -51,7 +51,20 @@ const style = (width, height) =>
       right: 24,
       top: height * 0.23,
     },
-
+    closeOptions: {
+      backgroundColor: '#fff',
+      borderRadius: 25,
+      position: 'absolute',
+      zIndex: 9,
+      right:width * -0.1,
+      bottom: 112,
+    },
+    chooseOptions: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0,0,0,0.7)',
+    },
     chooseView: {
       backgroundColor: '#fff',
       borderRadius: 10,
@@ -62,7 +75,7 @@ const style = (width, height) =>
       justifyContent: 'space-around',
     },
     cameraHolder: {
-      backgroundColor: '#ee1b4d',
+      backgroundColor: '#e3256b',
       height: 50,
       width: 75,
       borderRadius: 10,
@@ -70,7 +83,7 @@ const style = (width, height) =>
       alignItems: 'center',
     },
     galleryHolder: {
-      backgroundColor: '#ee1b4d',
+      backgroundColor: '#e3256b',
       height: 50,
       width: 75,
       borderRadius: 10,

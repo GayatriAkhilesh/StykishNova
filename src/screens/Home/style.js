@@ -7,16 +7,18 @@ const style = StyleSheet.create({
   },
   main:{
     flex:1,
+    // backgroundColor:'#0808',
   },
+  
   footText:{
-    fontFamily:'Poppins-Bold',
-    fontSize:25,
+    fontFamily:'Poppins-SemiBold',
+    fontSize:22,
     color:'#59515e',
     padding:15,
   },
   footButton:{
-    padding:15,
-    backgroundColor:'#ee1b4d',
+    padding:10,
+    backgroundColor:'#e3256b',
     width:'50%',
     marginHorizontal:15,
     justifyContent:'center',

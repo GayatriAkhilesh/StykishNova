@@ -96,8 +96,8 @@ const Offers = () => {
                     <Text
                       style={{
                         fontFamily: 'Poppins-SemiBold',
-                        color: '#ee1b4d',
-                        fontSize: 50,
+                        color: '#e3256b',
+                        fontSize: 40,
                         marginTop: -7,
                         marginLeft: -4,
                       }}>
@@ -107,7 +107,7 @@ const Offers = () => {
                       <Text
                         style={{
                           fontFamily: 'Poppins-Regular',
-                          color: '#ee1b4d',
+                          color: '#e3256b',
                           fontSize: 14,
                           marginTop: 10,
                         }}>
@@ -116,7 +116,7 @@ const Offers = () => {
                       <Text
                         style={{
                           fontFamily: 'Poppins-Regular',
-                          color: '#ee1b4d',
+                          color: '#e3256b',
                           fontSize: 14,
                         }}>
                         OFF
@@ -177,7 +177,7 @@ const Offers = () => {
                       padding: 5,
                       justifyContent: 'center',
                       borderRadius: 15,
-                      backgroundColor: '#ee1b4d',
+                      backgroundColor: '#e3256b',
                       overflow: 'hidden',
                       marginRight: 7,
                       marginLeft: -5,

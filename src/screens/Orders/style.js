@@ -45,7 +45,7 @@ const style = (width, height) =>
       fontSize: 16,
     },
     pinkText:{
-      color: '#ee1b4d',
+      color: '#e3256b',
       fontFamily: 'Poppins-Regular',
       fontSize: 16,
     },
@@ -60,7 +60,7 @@ const style = (width, height) =>
       fontSize: 14,
     },
     orderedText:{
-      color: '#ee1b4d',
+      color: '#e3256b',
       fontFamily: 'Poppins-Regular',
       fontSize: 14,
     },
