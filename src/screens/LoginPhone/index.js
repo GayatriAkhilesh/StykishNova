@@ -68,12 +68,12 @@ const LoginPhone = () => {
   return (
     <View style={responsiveStyle.container}>
       <Image
-        source={require('../../assets/images/new-doodle-bg-login.jpg')}
+        source={require('../../assets/images/aesthetic-login.png')}
         style={responsiveStyle.topBg}
       />
       <ScrollView style={responsiveStyle.ScrollView}>
         <Image
-          source={require('../../assets/images/writtenlogo-final-removebg-preview.png')}
+          source={require('../../assets/images/BLACK-WRITTEN-LOGO.png')}
           style={responsiveStyle.logo}
         />
         <Text style={responsiveStyle.logintxt}>Login with Phone Number</Text>

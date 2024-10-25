@@ -21,7 +21,7 @@ const CommonHeader = () => {
         />
       </TouchableOpacity>
       <Image
-        source={require('../../assets/images/StylishNova-new-logo.png')}
+        source={require('../../assets/images/BLACK-LOGO.png')}
         style={responsiveStyle.logo}
       />
     </View>

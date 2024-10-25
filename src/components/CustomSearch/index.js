@@ -26,7 +26,7 @@ const CustomSearch = props => {
             placeholder="Find your needs here . . ."
             placeholderTextColor={'#808080'}
             style={responsiveStyle.textInput}
-            selectionColor={'#e3256b'}
+            selectionColor={'#48301f'}
           />
         </View>
         <Image

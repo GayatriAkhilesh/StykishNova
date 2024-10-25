@@ -18,7 +18,7 @@ const style = StyleSheet.create({
   },
   footButton:{
     padding:10,
-    backgroundColor:'#e3256b',
+    backgroundColor:'#48301f',
     width:'50%',
     marginHorizontal:15,
     justifyContent:'center',

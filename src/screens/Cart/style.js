@@ -58,7 +58,7 @@ const style = (width, height, isPortrait) =>
     offView: {
       padding: 5,
       borderRadius: 15,
-      backgroundColor: '#e3256b',
+      backgroundColor: '#48301f',
       marginHorizontal: 8,
     },
     offText: {
@@ -73,7 +73,7 @@ const style = (width, height, isPortrait) =>
       justifyContent: 'space-around',
       borderRadius: 15,
       borderWidth: 1,
-      borderColor: '#ec97ab',
+      borderColor: '#845b49',
       overflow: 'hidden',
       padding: 5,
     },
@@ -86,7 +86,7 @@ const style = (width, height, isPortrait) =>
     quantityText2: {
       fontFamily: 'Poppins-SemiBold',
       fontSize: 16,
-      color: '#e3256b',
+      color: '#48301f',
       marginHorizontal: 5,
     },
     renderView: {

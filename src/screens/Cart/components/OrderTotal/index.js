@@ -43,7 +43,7 @@ const OrderTotal = () => {
             style={{
               fontFamily: 'Poppins-Regular',
               fontSize: 14,
-              color: '#e3256b',
+              color: '#48301f',
               lineHeight: 25,
             }}>
             Apply Coupon

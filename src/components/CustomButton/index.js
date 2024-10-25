@@ -10,7 +10,7 @@ const CustomButton = props => {
       style={[
         style.button,
         {
-          backgroundColor: type === 'primary' ? '#e3256b' : '#d0d1d9',
+          backgroundColor: type === 'primary' ? '#48301f' : '#c6ab80',
         },
       ]}>
         {type !== 'primary' ? <Image source={icon} style={style.icon}/> : null}

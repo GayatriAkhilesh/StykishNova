@@ -7,22 +7,22 @@ import {useDimensionContext} from '../../context';
 import CustomTextInput from '../../components/CustomTextInput';
 import CustomButton from '../../components/CustomButton';
 import ImagePicker from 'react-native-image-crop-picker';
+import Snackbar from 'react-native-snackbar';
+import { validateEmail, validatePhoneNumber } from '../../components/Common/validations';
+import { useSelector } from 'react-redux';
 
 const Account = () => {
   const navigation = useNavigation();
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
+  const {firstName, lastName, email, mobilenumber} = useSelector(state => state);
 
-  const [fName, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [phNumber, setPhNumber] = useState('');
+
+  const [fName, setFname] = useState(firstName);
+  const [lname, setLname] = useState(lastName);
+  const [eMail, setEmail] = useState(email);
+  const [phNumber, setPhNumber] = useState(mobilenumber);
   const [profileImage, setProfileImage] = useState('');
-
-  const [fNameError, setFnameError] = useState('');
-  const [lnameError, setLnameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [phNumberError, setPhNumberError] = useState('');
 
   const [modal, setModal] = useState(false);
   const [modalChoose, setModalChoose] = useState(false);
@@ -72,58 +72,40 @@ const Account = () => {
     setModal(!modal);
   };
 
-  const validateFirstName = () => {
-    if (fName.trim === '') {
-      setFnameError('First Name is required.');
-      return false;
-    } else if (!/^[A-Za-z]+$/.test(fName)) {
-      setFnameError('First Name should contain only alphabets. ');
-      return false;
-    } else {
-      setFnameError('');
-      return true;
+  const handleUpdateProfile = () => {
+    if (phNumber !== '') {
+      if (validatePhoneNumber(phNumber.trim())) {
+        if (validateEmail(eMail)){
+          if(fName !== "" && lname !==""){
+            console.warn('true');
+          }else{
+            Snackbar.show({
+              text: 'Fill up all fields to continue.',
+              duration: Snackbar.LENGTH_LONG,
+              backgroundColor: '#D2042D',
+              textColor: 'white',
+            });
+          }
+          
+        }else{
+          Snackbar.show({
+            text: 'Given email address is invalid',
+            duration: Snackbar.LENGTH_LONG,
+            backgroundColor: '#D2042D',
+            textColor: 'white',
+          });
+        }
+        
+      } else {
+        Snackbar.show({
+          text: 'Given phone number is invalid',
+          duration: Snackbar.LENGTH_LONG,
+          backgroundColor: '#D2042D',
+          textColor: 'white',
+        });
+      }
     }
   };
-
-  const validateLastName = () => {
-    if (lname.trim === '') {
-      setLnameError('Last Name is required.');
-      return false;
-    } else if (!/^[A-Za-z]+$/.test(lname)) {
-      setLnameError('Last Name should contain only alphabets. ');
-      return false;
-    } else {
-      setLnameError('');
-      return true;
-    }
-  };
-
-  const validateEmail = () => {
-    if (email.trim === '') {
-      setEmailError('Email is required.');
-      return false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailError('Invalid email address.');
-      return false;
-    } else {
-      setEmailError('');
-      return true;
-    }
-  };
-
-  const validatePhoneNumber = () => {
-    if (phNumber.trim === '') {
-      setPhNumberError('Phone Number is required. ');
-      return false;
-    } else if (!/^\d{10}$/.test(phNumber)) {
-      setPhNumberError('Phone number should be 10 digits.');
-    } else {
-      setPhNumberError('');
-      return true;
-    }
-  };
-
-  const handleUpdateProfile = () => {};
   return (
     <View style={responsiveStyle.container}>
       <Text style={responsiveStyle.head}>Gayatri Sivakumar</Text>
@@ -150,19 +132,23 @@ const Account = () => {
 
       <CustomTextInput
         handleText={text => setFname(text)}
+        value={fName}
         placeholder="First Name"
       />
       <CustomTextInput
         handleText={text => setLname(text)}
+        value={lname}
         placeholder="Last Name"
       />
       <CustomTextInput
         type="email"
         handleText={text => setEmail(text)}
+        value={eMail}
         placeholder="Email Address"
       />
       <CustomTextInput
         handleText={text => setPhNumber(text)}
+        value={phNumber}
         placeholder="Mobile Number"
       />
       <CustomButton

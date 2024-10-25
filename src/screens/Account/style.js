@@ -75,7 +75,7 @@ const style = (width, height) =>
       justifyContent: 'space-around',
     },
     cameraHolder: {
-      backgroundColor: '#e3256b',
+      backgroundColor: '#48301f',
       height: 50,
       width: 75,
       borderRadius: 10,
@@ -83,7 +83,7 @@ const style = (width, height) =>
       alignItems: 'center',
     },
     galleryHolder: {
-      backgroundColor: '#e3256b',
+      backgroundColor: '#48301f',
       height: 50,
       width: 75,
       borderRadius: 10,

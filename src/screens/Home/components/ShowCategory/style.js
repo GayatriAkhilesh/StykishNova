@@ -40,7 +40,7 @@ const style = (width, height) =>
       alignItems: 'center',
       padding:5,
       marginBottom: 10,
-      backgroundColor:'#fbeaee',
+      backgroundColor:'#c6ab80',
     },
   });
 

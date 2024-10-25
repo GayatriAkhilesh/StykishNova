@@ -66,7 +66,7 @@ const ProductScroll = () => {
                   marginVertical: 15,
                   borderRadius: 5,
                   borderWidth: 1,
-                  borderColor: '#ec97ab',
+                  borderColor: '#845b49',
                 }}>
                 <Image
                   source={require('../../assets/images/wishlist-product-outline.png')}
@@ -123,7 +123,7 @@ const ProductScroll = () => {
                   <View
                     style={{
                       padding: 3,
-                      backgroundColor: '#e3256b',
+                      backgroundColor: '#48301f',
                       borderRadius: 5,
                     }}>
                     <Text

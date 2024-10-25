@@ -26,8 +26,8 @@ const style = (width, height) =>
     },
     newStyle:{
       borderWidth: 1,
-      borderColor: '#ec97ab',
-      backgroundColor: '#fbeaee',
+      borderColor: '#845b49',
+      backgroundColor: '#c6ab80',
       justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'row',
@@ -54,7 +54,7 @@ const style = (width, height) =>
     filter:{
       fontFamily:'Poppins-Regular',
       fontSize:17,
-      color:'#e3256b',
+      color:'#48301f',
     },
   });
 

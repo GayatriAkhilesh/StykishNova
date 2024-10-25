@@ -4,7 +4,7 @@ const style = (width, height, isPortrait) =>
   StyleSheet.create({
     container:{
         borderRadius:15,
-        backgroundColor:'#e3256b',
+        backgroundColor:'#48301f',
         padding:12,
         width: width* 0.9,
         justifyContent:'center',

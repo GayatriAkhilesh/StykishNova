@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const style = (width, height) =>
   StyleSheet.create({
-    container: {padding: 15, backgroundColor: '#fbeaee'},
+    container: {padding: 15, backgroundColor: '#c6ab80'},
     headView: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -60,7 +60,7 @@ const style = (width, height) =>
     offView: {
       padding: 5,
       borderRadius: 15,
-      backgroundColor: '#e3256b',
+      backgroundColor: '#48301f',
       marginHorizontal: 8,
     },
     offText: {
@@ -75,7 +75,7 @@ const style = (width, height) =>
       justifyContent: 'space-around',
       borderRadius: 15,
       borderWidth: 1,
-      borderColor: '#ec97ab',
+      borderColor: '#845b49',
       overflow: 'hidden',
       padding: 5,
     },
@@ -88,7 +88,7 @@ const style = (width, height) =>
     quantityText2:{
       fontFamily: 'Poppins-SemiBold',
       fontSize: 14,
-      color: '#e3256b',
+      color: '#48301f',
       marginHorizontal: 6,
     }
   });

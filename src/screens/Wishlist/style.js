@@ -40,7 +40,7 @@ const style = (width, height) =>
       top:-10,
       width:23,
       height:23,
-      backgroundColor: '#e3256b',
+      backgroundColor: '#48301f',
       justifyContent:'center',
       alignItems:'center',
       borderRadius:10,
@@ -89,7 +89,7 @@ const style = (width, height) =>
     },
     offView: {
       borderRadius: 15,
-      backgroundColor: '#e3256b',
+      backgroundColor: '#48301f',
       padding: 5,
       marginHorizontal: 5,
     },
@@ -100,7 +100,7 @@ const style = (width, height) =>
     },
     cartView: {
       borderRadius: 15,
-      borderColor: '#e3256b',
+      borderColor: '#48301f',
       borderWidth: 1,
       padding: 5,
       marginHorizontal: 5,
@@ -108,7 +108,7 @@ const style = (width, height) =>
     cartText: {
       fontFamily: 'Poppins-Regular',
       fontSize: 14,
-      color: '#e3256b',
+      color: '#48301f',
     },
   });
 

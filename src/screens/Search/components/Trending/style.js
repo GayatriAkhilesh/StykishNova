@@ -16,7 +16,7 @@ const style = (width, height) =>
       marginVertical: 15,
     },
     imageCon: {
-      backgroundColor: '#fbeaee',
+      backgroundColor: '#c6ab80',
       padding: 8,
       overflow: 'hidden',
       marginRight: 6,

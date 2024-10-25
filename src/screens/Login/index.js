@@ -7,8 +7,10 @@ import CustomButton from '../../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import Snackbar from 'react-native-snackbar';
 import auth from '@react-native-firebase/auth';
-import {validateEmail} from './controller';
 import {useDimensionContext} from '../../context';
+import {validateEmail} from '../../components/Common/validations';
+import {useDispatch} from 'react-redux';
+import {login} from '../../storage/action';
 
 const Login = () => {
   const dimensions = useDimensionContext();
@@ -16,6 +18,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, SetPassword] = useState('');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const responsiveStyle = style(
     dimensions.windowWidth,
@@ -51,6 +54,9 @@ const Login = () => {
             } else {
               snapshot.forEach(documentSnapshot => {
                 const respData = documentSnapshot.data();
+
+                console.warn(respData);
+
                 if (password.trim() === respData.password) {
                   Snackbar.show({
                     text: 'Login Successfull',
@@ -58,7 +64,15 @@ const Login = () => {
                     backgroundColor: 'green',
                     textColor: 'white',
                   });
-                  navigation.navigate('AppDrawer');
+                  dispatch(
+                    login({
+                      firstName: respData.firstName,
+                      lastName: respData.lastName,
+                      email: respData.email,
+                      mobilenumber: respData.mobilenumber,
+                    }),
+                  );
+                  // navigation.navigate('AppDrawer');
                 } else {
                   Snackbar.show({
                     text: 'The Password is incorrect.',
@@ -102,12 +116,12 @@ const Login = () => {
   return (
     <View style={responsiveStyle.container}>
       <Image
-        source={require('../../assets/images/new-doodle-bg-login.jpg')}
+        source={require('../../assets/images/aesthetic-login.png')}
         style={responsiveStyle.topBg}
       />
       <ScrollView style={responsiveStyle.ScrollView}>
         <Image
-          source={require('../../assets/images/writtenlogo-final-removebg-preview.png')}
+          source={require('../../assets/images/BLACK-WRITTEN-LOGO.png')}
           style={responsiveStyle.logo}
         />
         <Text style={responsiveStyle.logintxt}>Login Account</Text>
@@ -138,12 +152,12 @@ const Login = () => {
                 textAlign: 'center',
                 paddingHorizontal: 8,
                 fontFamily: 'Poppins-Regular',
-                color: '#41424c',
+                color: '#48301f',
               }}>
               Or Login With
             </Text>
           </View>
-          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          <View style={{flex: 1, height: 1, backgroundColor: '48301f'}} />
         </View>
         <CustomButton
           type="secondary"

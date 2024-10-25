@@ -22,7 +22,7 @@ const style = (width, height) =>
         padding:width * 0.03,
     },
     logo:{
-        width:width * 0.5,
+        width:width * 0.6,
         height:width * 0.2,
         resizeMode:'contain',
     },
@@ -30,12 +30,12 @@ const style = (width, height) =>
         marginLeft:width * 0.01 ,
         fontFamily:'Poppins-Regular',
         fontSize:19,
-        color:'#48494b'
+        color:'#48301f'
     },
     createNew:{
         fontFamily:'Poppins-Regular',
         fontSize:14,
-        color:'#48494b',
+        color:'#c6ab80',
         textAlign:'center',
         marginVertical: width * 0.018,
     },
@@ -44,7 +44,7 @@ const style = (width, height) =>
         padding:8,
         justifyContent:'flex-start',
         alignItems:'center',
-        backgroundColor:'#d0d1d9',
+        backgroundColor:'#c6ab80',
     },
     footerText:{
         fontFamily:'Poppins-Regular',
