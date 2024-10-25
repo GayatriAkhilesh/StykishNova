@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -19,6 +19,9 @@ import Orders from '../Orders';
 import Wishlist from '../Wishlist';
 import Account from '../Account';
 import style from './style';
+import {Provider, useSelector} from 'react-redux';
+import {store} from '../../storage/store';
+import Splash from '../Splash';
 
 const Drawer = createDrawerNavigator();
 const AppDrawer = props => {
@@ -28,7 +31,7 @@ const AppDrawer = props => {
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerTitleAlign: 'left',
-        headerTitleStyle:style.title,
+        headerTitleStyle: style.title,
       }}>
       <Drawer.Screen
         name="MyFooter"
@@ -66,18 +69,45 @@ const AppFooter = () => {
 };
 
 const AppStack = createNativeStackNavigator();
-const App = () => {
+const AppNavigation = () => {
+  const [loading, setLoading] = useState(true);
+  const {isLoggedIn} = useSelector(state => state);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 4000);
+  }, []);
   return (
     <DimensionContextProvider>
       <NavigationContainer>
         <AppStack.Navigator screenOptions={{headerShown: false}}>
-          <AppStack.Screen name="Login" component={Login} />
-          <AppStack.Screen name="AppDrawer" component={AppDrawer} />
-          <AppStack.Screen name="SignUp" component={SignUp} />
-          <AppStack.Screen name="LoginPhone" component={LoginPhone} />
+          {loading ? (
+            <AppStack.Screen name="Splash" component={Splash} />
+          ) : (
+            <>
+              {isLoggedIn ? (
+                <AppStack.Screen name="AppDrawer" component={AppDrawer} />
+              ) : (
+                <>
+                  <AppStack.Screen name="Login" component={Login} />
+                  <AppStack.Screen name="SignUp" component={SignUp} />
+                  <AppStack.Screen name="LoginPhone" component={LoginPhone} />
+                </>
+              )}
+            </>
+          )}
         </AppStack.Navigator>
       </NavigationContainer>
     </DimensionContextProvider>
+  );
+};
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <AppNavigation />
+    </Provider>
   );
 };
 

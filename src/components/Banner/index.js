@@ -1,12 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import style from './style';
-import {
-  FlatList,
-  ImageBackground,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, ImageBackground, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 
 const Banner = () => {
@@ -53,13 +48,11 @@ const Banner = () => {
         keyExtractor={(item, index) => String(index)}
         renderItem={({item, index}) => {
           return (
-            
-              <TouchableOpacity style={responsiveStyle.touch}>
-               <ImageBackground
-              source={{uri: item.image}}
-              style={responsiveStyle.banner}></ImageBackground>
-              </TouchableOpacity>
-            
+            <TouchableOpacity style={responsiveStyle.touch}>
+              <ImageBackground
+                source={{uri: item.image}}
+                style={responsiveStyle.banner}></ImageBackground>
+            </TouchableOpacity>
           );
         }}
       />

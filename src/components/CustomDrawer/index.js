@@ -3,11 +3,16 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import style from './style';
 import {useDimensionContext} from '../../context';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {signout} from '../../storage/action';
 
 const CustomDrawer = () => {
   const dimensions = useDimensionContext();
   const responsiveStyle = style(dimensions.width, dimensions.height);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {firstName, lastName, email, profileImage} = useSelector(state => state);
+
   const Contents = [
     {
       itemId: 0,
@@ -40,6 +45,11 @@ const CustomDrawer = () => {
       icon: require('../../assets/images/user-drawer.png'),
     },
   ];
+
+  const handlesignout = () => {
+    dispatch(signout());
+  };
+
   return (
     <View style={responsiveStyle.mainContainer}>
       {/*Profile*/}
@@ -59,14 +69,23 @@ const CustomDrawer = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 25, fontFamily: 'Poppins-Bold'}}>X</Text>
+          <Image
+            source={
+              profileImage === ''
+                ? profileimage === ''
+                  ? require('../../assets/images/profile-drawer.jpeg')
+                  : {uri: profileimage}
+                : {uri: profileImage}
+            }
+            style={responsiveStyle.image}
+          />
         </View>
         <View style={{marginLeft: 15, marginTop: 12, width: '70%'}}>
           <Text style={{fontFamily: 'Poppins-Bold', fontSize: 20}}>
-            Gayatri
+            {firstName}  {lastName}
           </Text>
           <Text style={{fontFamily: 'Poppins-Regular', fontSize: 14}}>
-            gayatri02@gmail.com
+            {email}
           </Text>
         </View>
       </View>
@@ -96,13 +115,15 @@ const CustomDrawer = () => {
       </View>
       {/*Log Out*/}
       <View>
-        <View style={responsiveStyle.logoutView}>
+        <TouchableOpacity
+          onPress={handlesignout}
+          style={responsiveStyle.logoutView}>
           <Image
             source={require('../../assets/images/right-arrow.png')}
             style={responsiveStyle.iconSecond}
           />
           <Text style={responsiveStyle.logoutText}>Sign Out</Text>
-        </View>
+        </TouchableOpacity>
       </View>
 
       {/*Contact Support*/}

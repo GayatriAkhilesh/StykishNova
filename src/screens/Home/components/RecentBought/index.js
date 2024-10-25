@@ -36,26 +36,24 @@ const RecentBought = () => {
   ];
   return (
     <View style={responsiveStyle.container}>
-      
-        <Text style={responsiveStyle.headText}>View your recently bought</Text>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => String(index)}
-          data={recentItems}
-          renderItem={({item, index}) => {
-            return (
-              <View style={responsiveStyle.contentView}>
-                <ImageBackground
-                  source={require('../../../../assets/images/gradient.png')}
-                  style={responsiveStyle.gradientBg}>
-                  <Image source={item.image} style={responsiveStyle.image} />
-                </ImageBackground>
-              </View>
-            );
-          }}
-        />
-      
+      <Text style={responsiveStyle.headText}>View your recently bought</Text>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => String(index)}
+        data={recentItems}
+        renderItem={({item, index}) => {
+          return (
+            <View style={responsiveStyle.contentView}>
+              <ImageBackground
+                source={require('../../../../assets/images/gradient.png')}
+                style={responsiveStyle.gradientBg}>
+                <Image source={item.image} style={responsiveStyle.image} />
+              </ImageBackground>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };

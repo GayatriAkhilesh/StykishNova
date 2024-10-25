@@ -29,7 +29,6 @@ const ProductScroll = () => {
           const result = [];
           snapshot.docs.forEach(doc => {
             if (doc.exists) {
-              
               result.push(doc.data());
             }
           });

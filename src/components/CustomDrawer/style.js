@@ -58,6 +58,11 @@ const style = (width, height) =>
     supportInnerText: {
       fontFamily: 'Poppins-Medium',
     },
+    image: {
+      width: width * 0.4,
+      height: width * 0.4,
+      borderRadius: width * 0.2,
+    }
   });
 
 export default style;

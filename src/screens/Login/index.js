@@ -9,6 +9,8 @@ import Snackbar from 'react-native-snackbar';
 import auth from '@react-native-firebase/auth';
 import {validateEmail} from './controller';
 import {useDimensionContext} from '../../context';
+import {useDispatch} from 'react-redux';
+import {login} from '../../storage/action';
 
 const Login = () => {
   const dimensions = useDimensionContext();
@@ -16,6 +18,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, SetPassword] = useState('');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const responsiveStyle = style(
     dimensions.windowWidth,
@@ -33,7 +36,7 @@ const Login = () => {
     return subscriber;
   }, []);
 
-  const hamdleLogin = async () => {
+  const handleLogin = async () => {
     if (email.trim() !== '' && password.trim() !== '') {
       if (validateEmail(email.trim())) {
         await firestore()
@@ -51,6 +54,7 @@ const Login = () => {
             } else {
               snapshot.forEach(documentSnapshot => {
                 const respData = documentSnapshot.data();
+                console.warn(respData);
                 if (password.trim() === respData.password) {
                   Snackbar.show({
                     text: 'Login Successfull',
@@ -58,7 +62,17 @@ const Login = () => {
                     backgroundColor: 'green',
                     textColor: 'white',
                   });
-                  navigation.navigate('AppDrawer');
+                  dispatch(
+                    login({
+                      userId: documentSnapshot.id,
+                      firstName: respData.firstName,
+                      lastName: respData.lastName,
+                      email: respData.email,
+                      mobilenumber: respData.mobilenumber,
+                      profileimage: respData.profileimage,
+                    }),
+                  );
+                  // navigation.navigate('AppDrawer');
                 } else {
                   Snackbar.show({
                     text: 'The Password is incorrect.',
@@ -124,7 +138,7 @@ const Login = () => {
         />
         <CustomButton
           type="primary"
-          handleButtonPress={hamdleLogin}
+          handleButtonPress={handleLogin}
           buttonText={'Sign In'}
         />
         <Text onPress={handleGoToSignUp} style={responsiveStyle.createNew}>

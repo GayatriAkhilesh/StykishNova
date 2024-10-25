@@ -7,22 +7,26 @@ import {useDimensionContext} from '../../context';
 import CustomTextInput from '../../components/CustomTextInput';
 import CustomButton from '../../components/CustomButton';
 import ImagePicker from 'react-native-image-crop-picker';
+import Snackbar from 'react-native-snackbar';
+import {useDispatch, useSelector} from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
+import {updateProfile} from '../../storage/action';
+import {updateProfileImage} from './controller';
 
 const Account = () => {
   const navigation = useNavigation();
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
+  const {userId, firstName, lastName, email, mobilenumber, profileimage} =
+    useSelector(state => state);
 
-  const [fName, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [phNumber, setPhNumber] = useState('');
+  const dispatch = useDispatch();
+
+  const [fName, setFname] = useState(firstName);
+  const [lname, setLname] = useState(lastName);
+  const [eMail, setEmail] = useState(email);
+  const [phNumber, setPhNumber] = useState(mobilenumber);
   const [profileImage, setProfileImage] = useState('');
-
-  const [fNameError, setFnameError] = useState('');
-  const [lnameError, setLnameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [phNumberError, setPhNumberError] = useState('');
 
   const [modal, setModal] = useState(false);
   const [modalChoose, setModalChoose] = useState(false);
@@ -45,7 +49,7 @@ const Account = () => {
       cropping: true,
     })
       .then(image => {
-        console.warn(image);
+        console.warn('imageeeey', image);
         setProfileImage(image.path ?? '');
       })
       .catch(err => {
@@ -74,65 +78,128 @@ const Account = () => {
 
   const validateFirstName = () => {
     if (fName.trim === '') {
-      setFnameError('First Name is required.');
+      ('First Name is required.');
       return false;
     } else if (!/^[A-Za-z]+$/.test(fName)) {
-      setFnameError('First Name should contain only alphabets. ');
+      ('First Name should contain only alphabets. ');
       return false;
     } else {
-      setFnameError('');
+      ('');
       return true;
     }
   };
 
   const validateLastName = () => {
     if (lname.trim === '') {
-      setLnameError('Last Name is required.');
+      ('Last Name is required.');
       return false;
     } else if (!/^[A-Za-z]+$/.test(lname)) {
-      setLnameError('Last Name should contain only alphabets. ');
+      ('Last Name should contain only alphabets. ');
       return false;
     } else {
-      setLnameError('');
+      ('');
       return true;
     }
   };
 
   const validateEmail = () => {
-    if (email.trim === '') {
-      setEmailError('Email is required.');
+    if (eMail.trim === '') {
+      ('Email is required.');
       return false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailError('Invalid email address.');
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(eMail)) {
+      ('Invalid email address.');
       return false;
     } else {
-      setEmailError('');
+      ('');
       return true;
     }
   };
-
   const validatePhoneNumber = () => {
-    if (phNumber.trim === '') {
-      setPhNumberError('Phone Number is required. ');
+    if (phNumber.trim == '') {
       return false;
     } else if (!/^\d{10}$/.test(phNumber)) {
-      setPhNumberError('Phone number should be 10 digits.');
     } else {
-      setPhNumberError('');
       return true;
     }
   };
 
-  const handleUpdateProfile = () => {};
+  const handleUpdateProfile = async () => {
+    if (phNumber !== '') {
+      if (validatePhoneNumber(phNumber.trim())) {
+        if (validateEmail(eMail)) {
+          if (validateFirstName(fName) && validateLastName(lname)) {
+            let newPath = '';
+            if (profileImage !== '') {
+              newPath = await updateProfileImage(profileImage);
+            }
+           
+            await firestore()
+              .collection('Users')
+              .doc(userId)
+              .update({
+                firstName: fName,
+                lastName: lname,
+                email: eMail,
+                mobilenumber: phNumber,
+                profileImage: newPath,
+              })
+              .then(() => {
+                dispatch(
+                  updateProfile({
+                    firstName: fName,
+                    lastName: lname,
+                    email: eMail,
+                    mobilenumber: phNumber,
+                    profileimage: newPath,
+                  }),
+                );
+                Snackbar.show({
+                  text: 'Profile updated successfully.',
+                  duration: Snackbar.LENGTH_LONG,
+                  backgroundColor: 'green',
+                  textColor: 'white',
+                });
+              });
+
+            
+          } else
+            Snackbar.show({
+              text: 'Given name is invalid.',
+              duration: Snackbar.LENGTH_LONG,
+              backgroundColor: '#D20A2E',
+              textColor: 'white',
+            });
+        } else {
+          Snackbar.show({
+            text: 'Given email address is invalid.',
+            duration: Snackbar.LENGTH_LONG,
+            backgroundColor: '#D20A2E',
+            textColor: 'white',
+          });
+        }
+      } else {
+        Snackbar.show({
+          text: 'Given phone number is invalid.',
+          duration: Snackbar.LENGTH_LONG,
+          backgroundColor: '#D20A2E',
+          textColor: 'white',
+        });
+      }
+    }
+  };
   return (
     <View style={responsiveStyle.container}>
-      <Text style={responsiveStyle.head}>Gayatri Sivakumar</Text>
+      <Text style={responsiveStyle.head}>
+        {firstName} {lastName}
+      </Text>
       <View style={responsiveStyle.userImage}>
         <TouchableOpacity onPress={handleOpenImage}>
           <Image
             source={
               profileImage === ''
-                ? require('../../assets/images/profile-drawer.jpeg')
+                ? profileimage === ''
+                  ? require('../../assets/images/profile-drawer.jpeg')
+                  : {uri: profileimage}
                 : {uri: profileImage}
             }
             style={responsiveStyle.image}
@@ -150,19 +217,23 @@ const Account = () => {
 
       <CustomTextInput
         handleText={text => setFname(text)}
+        value={fName}
         placeholder="First Name"
       />
       <CustomTextInput
         handleText={text => setLname(text)}
+        value={lname}
         placeholder="Last Name"
       />
       <CustomTextInput
         type="email"
         handleText={text => setEmail(text)}
+        value={eMail}
         placeholder="Email Address"
       />
       <CustomTextInput
         handleText={text => setPhNumber(text)}
+        value={phNumber}
         placeholder="Mobile Number"
       />
       <CustomButton

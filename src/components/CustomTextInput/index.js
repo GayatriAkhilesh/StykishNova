@@ -3,7 +3,7 @@ import {Image, TextInput, TouchableOpacity, View} from 'react-native';
 import style from './style';
 
 const CustomTextInput = props => {
-  const {type, handleText, placeholder} = props;
+  const {type, handleText, placeholder, value} = props;
   const [show, setShow] = useState(false);
   const keyboardType =
     type === 'email'
@@ -34,6 +34,7 @@ const CustomTextInput = props => {
         secureTextEntry={secureTextEntry}
         selectionColor={'#da335c'}
         onChangeText={handleText}
+        value={value}
       />
       {!icon ? null : (
         <TouchableOpacity onPress={handlePassword} disabled={type !== 'password' ? true : false}>

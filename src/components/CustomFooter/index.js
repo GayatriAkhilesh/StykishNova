@@ -1,6 +1,6 @@
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import style from './style';
-import { useDimensionContext } from '../../context';
+import {useDimensionContext} from '../../context';
 
 const CustomFooter = ({state, descriptors, navigation}) => {
   const dimensions = useDimensionContext();
@@ -11,8 +11,7 @@ const CustomFooter = ({state, descriptors, navigation}) => {
   );
 
   return (
-    <View
-      style={responsiveStyle.mainContainer}>
+    <View style={responsiveStyle.mainContainer}>
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         const icon =
@@ -30,21 +29,15 @@ const CustomFooter = ({state, descriptors, navigation}) => {
             key={index}
             onPress={() => navigation.navigate(route.name)}
             style={responsiveStyle.touchContainer}>
-                          {isFocused? <Text style={responsiveStyle.dot}>.</Text>: null}
-                          {route.name === 'Cart' ? (
-                            <View style={responsiveStyle.cartCount}>
-                              <Text style={responsiveStyle.count}>3</Text>
-                            </View>
-                          ): null}
+            {isFocused ? <Text style={responsiveStyle.dot}>.</Text> : null}
+            {route.name === 'Cart' ? (
+              <View style={responsiveStyle.cartCount}>
+                <Text style={responsiveStyle.count}>3</Text>
+              </View>
+            ) : null}
 
-            <Image
-              source={icon}
-              style={responsiveStyle.iconStyle}
-            />
-            <Text
-              style={responsiveStyle.footerText}>
-              {route.name}
-            </Text>
+            <Image source={icon} style={responsiveStyle.iconStyle} />
+            <Text style={responsiveStyle.footerText}>{route.name}</Text>
           </TouchableOpacity>
         );
       })}
