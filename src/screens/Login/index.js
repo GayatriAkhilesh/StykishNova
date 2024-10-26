@@ -66,10 +66,12 @@ const Login = () => {
                   });
                   dispatch(
                     login({
+                      userId: documentSnapshot.id,
                       firstName: respData.firstName,
                       lastName: respData.lastName,
                       email: respData.email,
                       mobilenumber: respData.mobilenumber,
+                      profileImage: respData.profileimage,
                     }),
                   );
                   // navigation.navigate('AppDrawer');

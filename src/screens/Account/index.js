@@ -7,16 +7,24 @@ import {useDimensionContext} from '../../context';
 import CustomTextInput from '../../components/CustomTextInput';
 import CustomButton from '../../components/CustomButton';
 import ImagePicker from 'react-native-image-crop-picker';
+import firestore from '@react-native-firebase/firestore';
 import Snackbar from 'react-native-snackbar';
-import { validateEmail, validatePhoneNumber } from '../../components/Common/validations';
-import { useSelector } from 'react-redux';
+import {
+  validateEmail,
+  validatePhoneNumber,
+} from '../../components/Common/validations';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateProfile} from '../../storage/action';
+import { updateProfileImage } from './controller';
 
 const Account = () => {
   const navigation = useNavigation();
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
-  const {firstName, lastName, email, mobilenumber} = useSelector(state => state);
-
+  const dispatch = useDispatch();
+  const {userId, firstName, lastName, email, mobilenumber} = useSelector(
+    state => state,
+  );
 
   const [fName, setFname] = useState(firstName);
   const [lname, setLname] = useState(lastName);
@@ -72,13 +80,43 @@ const Account = () => {
     setModal(!modal);
   };
 
-  const handleUpdateProfile = () => {
+  const handleUpdateProfile = async () => {
     if (phNumber !== '') {
       if (validatePhoneNumber(phNumber.trim())) {
-        if (validateEmail(eMail)){
-          if(fName !== "" && lname !==""){
-            console.warn('true');
-          }else{
+        if (validateEmail(eMail)) {
+          if (fName !== '' && lname !== '') {
+            let newUrl = '';
+            if (profileImage !== '') {
+              newUrl =  updateProfileImage(profileImage);
+            }
+            await firestore()
+              .collection('Users')
+              .doc(userId)
+              .update({
+                firstName: fName,
+                lastName: lname,
+                email: eMail,
+                mobilenumber: phNumber,
+                profileimage: newUrl,
+              })
+              .then(() => {
+                dispatch(
+                  updateProfile({
+                    firstName: fName,
+                    lastName: lname,
+                    email: eMail,
+                    mobilenumber: phNumber,
+                    profileImage: newUrl,
+                  }),
+                );
+                Snackbar.show({
+                  text: 'Profile updated successfully.',
+                  duration: Snackbar.LENGTH_LONG,
+                  backgroundColor: 'green',
+                  textColor: 'white',
+                });
+              });
+          } else {
             Snackbar.show({
               text: 'Fill up all fields to continue.',
               duration: Snackbar.LENGTH_LONG,
@@ -86,8 +124,7 @@ const Account = () => {
               textColor: 'white',
             });
           }
-          
-        }else{
+        } else {
           Snackbar.show({
             text: 'Given email address is invalid',
             duration: Snackbar.LENGTH_LONG,
@@ -95,7 +132,6 @@ const Account = () => {
             textColor: 'white',
           });
         }
-        
       } else {
         Snackbar.show({
           text: 'Given phone number is invalid',
@@ -108,7 +144,9 @@ const Account = () => {
   };
   return (
     <View style={responsiveStyle.container}>
-      <Text style={responsiveStyle.head}>Gayatri Sivakumar</Text>
+      <Text style={responsiveStyle.head}>
+        {firstName} {lastName}
+      </Text>
       <View style={responsiveStyle.userImage}>
         <TouchableOpacity onPress={handleOpenImage}>
           <Image
