@@ -15,22 +15,21 @@ import {
 } from '../../components/Common/validations';
 import {useDispatch, useSelector} from 'react-redux';
 import {updateProfile} from '../../storage/action';
-import { updateProfileImage } from './controller';
+import {updateProfileImage} from './controller';
 
 const Account = () => {
   const navigation = useNavigation();
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
   const dispatch = useDispatch();
-  const {userId, firstName, lastName, email, mobilenumber} = useSelector(
-    state => state,
-  );
+  const {userId, firstName, lastName, email, mobilenumber, profileImage} =
+    useSelector(state => state);
 
   const [fName, setFname] = useState(firstName);
   const [lname, setLname] = useState(lastName);
   const [eMail, setEmail] = useState(email);
   const [phNumber, setPhNumber] = useState(mobilenumber);
-  const [profileImage, setProfileImage] = useState('');
+  const [userImage, setUserImage] = useState('');
 
   const [modal, setModal] = useState(false);
   const [modalChoose, setModalChoose] = useState(false);
@@ -53,8 +52,7 @@ const Account = () => {
       cropping: true,
     })
       .then(image => {
-        console.warn(image);
-        setProfileImage(image.path ?? '');
+        setUserImage(image.path ?? '');
       })
       .catch(err => {
         console.log(err);
@@ -85,10 +83,11 @@ const Account = () => {
       if (validatePhoneNumber(phNumber.trim())) {
         if (validateEmail(eMail)) {
           if (fName !== '' && lname !== '') {
-            let newUrl = '';
-            if (profileImage !== '') {
-              newUrl =  updateProfileImage(profileImage);
+            let newUrl = profileImage;
+            if (userImage !== '') {
+              newUrl = await updateProfileImage(userImage);
             }
+
             await firestore()
               .collection('Users')
               .doc(userId)
@@ -97,7 +96,7 @@ const Account = () => {
                 lastName: lname,
                 email: eMail,
                 mobilenumber: phNumber,
-                profileimage: newUrl,
+                userImage: newUrl,
               })
               .then(() => {
                 dispatch(
@@ -109,6 +108,7 @@ const Account = () => {
                     profileImage: newUrl,
                   }),
                 );
+                setUserImage('');
                 Snackbar.show({
                   text: 'Profile updated successfully.',
                   duration: Snackbar.LENGTH_LONG,
@@ -151,9 +151,11 @@ const Account = () => {
         <TouchableOpacity onPress={handleOpenImage}>
           <Image
             source={
-              profileImage === ''
-                ? require('../../assets/images/profile-drawer.jpeg')
-                : {uri: profileImage}
+              userImage === ''
+                ? profileImage === ''
+                  ? require('../../assets/images/profile-drawer.jpeg')
+                  : {uri: profileImage}
+                : {uri: userImage}
             }
             style={responsiveStyle.image}
           />
@@ -208,9 +210,9 @@ const Account = () => {
           <Image
             style={responsiveStyle.bigImage}
             source={
-              profileImage === ''
+              userImage === ''
                 ? require('../../assets/images/profile-drawer.jpeg')
-                : {uri: profileImage}
+                : {uri: userImage}
             }
           />
         </View>

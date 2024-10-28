@@ -24,7 +24,7 @@ const CustomSearch = props => {
           />
           <TextInput
             placeholder="Find your needs here . . ."
-            placeholderTextColor={'#808080'}
+            placeholderTextColor={'#48301f'}
             style={responsiveStyle.textInput}
             selectionColor={'#48301f'}
           />

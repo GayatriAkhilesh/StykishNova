@@ -13,13 +13,14 @@ import {
 import CustomSearch from '../../components/CustomSearch';
 import {useDimensionContext} from '../../context';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const Categories = () => {
   const dimension = useDimensionContext();
   const navigation = useNavigation();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
-  const [categories, setCategories] = useState([]);
+  const {categories} = useSelector(state => state);
   const [products, setProducts] = useState([]);
   const [active, setActive] = useState(0);
 
@@ -28,32 +29,8 @@ const Categories = () => {
       headerLeft: () => <CommonHeaderLeft />,
     });
 
-    getCategories();
     getProducts();
   }, []);
-
-  const getCategories = async () => {
-    await firestore()
-      .collection('Categories')
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('Its empty');
-        } else {
-          const result = [];
-          snapshot.docs.forEach(doc => {
-            if (doc.exists) {
-              result.push(doc.data());
-            }
-          });
-          setCategories(result);
-          setActive(0);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
 
   const getProducts = async () => {
     await firestore()
@@ -61,7 +38,7 @@ const Categories = () => {
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
-                   console.log('Its empty');
+          console.log('Its empty');
         } else {
           const result = [];
           snapshot.docs.forEach(doc => {

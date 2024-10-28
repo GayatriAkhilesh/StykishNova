@@ -1,4 +1,4 @@
-import {LOGIN, SIGNOUT, UPDATEPROFILE} from './constants';
+import { LOGIN, SIGNOUT, UPDATECATEGORIES, UPDATEPROFILE} from './constants';
 
 export const login = data => ({
   type: LOGIN,
@@ -19,11 +19,18 @@ export const signout = data => ({
 
 export const updateProfile = data => ({
   type: UPDATEPROFILE,
-  payload:{
+  payload: {
     firstName: data.firstName,
     lastName: data.lastName,
     email: data.email,
     mobilenumber: data.mobilenumber,
     profileImage: data.profileImage,
-  }
-})
+  },
+});
+
+export const updatecategories = data => ({
+  type: UPDATECATEGORIES,
+  payload: {
+    categories: data,
+  },
+});

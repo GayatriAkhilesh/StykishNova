@@ -3,12 +3,14 @@ import firestore from '@react-native-firebase/firestore';
 import style from './style';
 import {useDimensionContext} from '../../../../context';
 import {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {updatecategories} from '../../../../storage/action';
 
 const ShowCategory = () => {
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.width, dimension.height);
-
   const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getCategories();
@@ -25,10 +27,15 @@ const ShowCategory = () => {
           const result = [];
           snapshot.docs.forEach(doc => {
             if (doc.exists) {
-              result.push(doc.data());
+              const responseData = {id: doc.id, ...doc?.data()};
+              result.push(responseData);
+              console.warn("responseData", responseData);
+              
             }
           });
           setCategories(result);
+
+          dispatch(updatecategories(result));
         }
       })
       .catch(err => {
@@ -39,7 +46,7 @@ const ShowCategory = () => {
   return (
     <View style={responsiveStyle.container}>
       <ImageBackground
-        source={require('../../../../assets/images/pastel-bg.jpg')}
+        source={require('../../../../assets/images/cat-image.jpg')}
         style={responsiveStyle.backGround}>
         <Text style={responsiveStyle.head}>Shop by Category</Text>
         <FlatList

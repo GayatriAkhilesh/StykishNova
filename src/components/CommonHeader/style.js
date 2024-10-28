@@ -26,9 +26,10 @@ const style = (width, height, isPortrait) =>
     },
     logo: {
       resizeMode: 'contain',
-      height: isPortrait?  width * 0.16 : width*0.065,
-      width: isPortrait? width * 0.20: width*0.08,
+      height: isPortrait?  width * 0.40 : width*0.065,
+      width: isPortrait? width * 0.25: width*0.08,
       marginTop: width * 0.016,
+      marginRight:-10,
     },
   });
 

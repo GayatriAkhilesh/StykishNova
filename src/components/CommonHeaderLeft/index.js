@@ -23,7 +23,7 @@ const CommonHeaderLeft = props => {
           source={
             props.type === 'back'
               ? require('../../assets/images/left-arrow-header.png')
-              : require('../../assets/images/left-drawer-icon.png')
+              : require('../../assets/images/drawer.png')
           }
           style={responsiveStyle.image}
         />

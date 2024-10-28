@@ -22,6 +22,8 @@ import style from './style';
 import {Provider, useSelector} from 'react-redux';
 import {store} from '../../storage/store';
 import Splash from '../Splash';
+import Shop from '../shop';
+import ProductDetails from '../ProductDetails';
 
 const Drawer = createDrawerNavigator();
 const AppDrawer = props => {
@@ -42,6 +44,9 @@ const AppDrawer = props => {
       <Drawer.Screen name="Orders" component={Orders} />
       <Drawer.Screen name="Wishlist" component={Wishlist} />
       <Drawer.Screen name="Account" component={Account} />
+      <Drawer.Screen name="Shop" component={Shop} />
+      <Drawer.Screen name="ProductDetails" component={ProductDetails} />
+
     </Drawer.Navigator>
   );
 };

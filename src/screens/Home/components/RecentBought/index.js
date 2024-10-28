@@ -11,7 +11,7 @@ const RecentBought = () => {
   const recentItems = [
     {
       id: 0,
-      image: require('../../../../assets/images/young-woman-screaming-while-looking-up.png'),
+      image: require('../../../../assets/images/new-product-dress-two.jpg'),
     },
     {
       id: 1,

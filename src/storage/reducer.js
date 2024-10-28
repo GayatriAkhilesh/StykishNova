@@ -1,4 +1,4 @@
-import {LOGIN, SIGNOUT, UPDATEPROFILE} from './constants';
+import {LOGIN, SIGNOUT, UPDATEPROFILE, UPDATECATEGORIES} from './constants';
 
 const initialState = {
   isLoggedIn: false,
@@ -8,6 +8,7 @@ const initialState = {
   email: '',
   mobilenumber: '',
   profileImage: '',
+  categories: [],
 };
 
 export const stylishNovaReducer = (state = initialState, action) => {
@@ -44,8 +45,13 @@ export const stylishNovaReducer = (state = initialState, action) => {
         profileImage: action.payload.profileImage,
         isLoggedIn: true,
       };
-
+    case UPDATECATEGORIES:
+      
+      return {
+        ...state,
+        categories:[...action.payload.categories],
+      };
     default:
-      break;
-  }
+      return state;
+  };
 };

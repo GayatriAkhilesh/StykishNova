@@ -9,6 +9,20 @@ const style = (width, height) =>
       paddingVertical: 8,
       justifyContent: 'space-between',
     },
+    accountTouch: {
+      flexDirection: 'row',
+      borderBottomWidth: 1,
+      borderBottomColor: '#41424c',
+      paddingVertical: 15,
+    },
+    accoutImage:{
+      width: 75,
+      height: 75,
+      borderRadius: 75 / 2,
+      backgroundColor: '#ebecef',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     drawerInnerView: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -18,6 +32,11 @@ const style = (width, height) =>
     drawerText: {
       fontFamily: 'Poppins-Medium',
       fontSize: 16,
+    },
+    image: {
+      width: 75,
+      height: 75,
+      borderRadius: 50,
     },
     logoutView: {
       // borderColor: '#000',

@@ -11,9 +11,9 @@ const CustomDrawer = () => {
   const responsiveStyle = style(dimensions.width, dimensions.height);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {firstName, lastName, email} = useSelector(state => state);
-  
-  
+  const {firstName, lastName, email, profileImage} = useSelector(
+    state => state,
+  );
 
   const Contents = [
     {
@@ -55,23 +55,19 @@ const CustomDrawer = () => {
   return (
     <View style={responsiveStyle.mainContainer}>
       {/*Profile*/}
-      <View
-        style={{
-          flexDirection: 'row',
-          borderBottomWidth: 1,
-          borderBottomColor: '#41424c',
-          paddingVertical: 15,
-        }}>
+      <TouchableOpacity
+        style={responsiveStyle.accountTouch} onPress={() => navigation.navigate('Account')}>
         <View
-          style={{
-            width: 75,
-            height: 75,
-            borderRadius: 75 / 2,
-            backgroundColor: '#ebecef',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 25, fontFamily: 'Poppins-Bold'}}>X</Text>
+          style={responsiveStyle.accountImage}
+          >
+          <Image
+            source={
+              profileImage === ''
+                ? require('../../assets/images/profile-drawer.jpeg')
+                : {uri: profileImage}
+            }
+            style={responsiveStyle.image}
+          />
         </View>
         <View style={{marginLeft: 15, marginTop: 12, width: '70%'}}>
           <Text style={{fontFamily: 'Poppins-Bold', fontSize: 20}}>
@@ -81,7 +77,7 @@ const CustomDrawer = () => {
             {email}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
       {/*Drawer Content*/}
       <View style={{marginVertical: 15}}>
         <View>
