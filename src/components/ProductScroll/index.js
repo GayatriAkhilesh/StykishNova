@@ -4,9 +4,10 @@ import style from './style';
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 import CommonSectionHeader from '../CommonSectionHeader';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
-const ProductScroll = () => {
+const ProductScroll = props => {
+  const {isNavigationNeeded} = props;
   const dimensions = useDimensionContext();
   const responsiveStyle = style(
     dimensions.windowWidth,
@@ -14,6 +15,7 @@ const ProductScroll = () => {
   );
 
   const navigation = useNavigation();
+  const route = useRoute();
 
   const [products, setProducts] = useState([]);
 
@@ -32,7 +34,6 @@ const ProductScroll = () => {
           const result = [];
           snapshot.docs.forEach(doc => {
             if (doc.exists) {
-              
               result.push(doc.data());
             }
           });
@@ -44,9 +45,14 @@ const ProductScroll = () => {
       });
   };
 
-
   const handleProducts = item => {
-    navigation.navigate('ProductDetails', {product:item});
+    if (route.name === 'ProductDetails') {
+      isNavigationNeeded(true, item);
+    } else {
+      navigation.navigate('ProductDetails', {
+        product: item,
+      });
+    }
   };
 
   return (
@@ -66,7 +72,7 @@ const ProductScroll = () => {
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity
-              onPress={() => handleProducts(item)}
+                onPress={() => handleProducts(item)}
                 style={{
                   width: 135,
                   height: 280,
