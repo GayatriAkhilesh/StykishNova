@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import style from './style';
-import {FlatList, Image, Text, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 import CommonSectionHeader from '../CommonSectionHeader';
+import { useNavigation } from '@react-navigation/native';
 
 const ProductScroll = () => {
   const dimensions = useDimensionContext();
@@ -11,6 +12,8 @@ const ProductScroll = () => {
     dimensions.windowWidth,
     dimensions.windowHeight,
   );
+
+  const navigation = useNavigation();
 
   const [products, setProducts] = useState([]);
 
@@ -41,6 +44,11 @@ const ProductScroll = () => {
       });
   };
 
+
+  const handleProducts = item => {
+    navigation.navigate('ProductDetails', {product:item});
+  };
+
   return (
     <View style={responsiveStyle.container}>
       <CommonSectionHeader
@@ -57,12 +65,13 @@ const ProductScroll = () => {
           keyExtractor={(item, index) => String(index)}
           renderItem={({item, index}) => {
             return (
-              <View
+              <TouchableOpacity
+              onPress={() => handleProducts(item)}
                 style={{
                   width: 135,
                   height: 280,
                   padding: 10,
-                  marginLeft: 10,
+                  marginLeft: 5,
                   marginVertical: 15,
                   borderRadius: 5,
                   borderWidth: 1,
@@ -136,7 +145,7 @@ const ProductScroll = () => {
                     </Text>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />

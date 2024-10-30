@@ -29,8 +29,6 @@ const ShowCategory = () => {
             if (doc.exists) {
               const responseData = {id: doc.id, ...doc?.data()};
               result.push(responseData);
-              console.warn("responseData", responseData);
-              
             }
           });
           setCategories(result);

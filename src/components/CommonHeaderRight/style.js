@@ -6,6 +6,11 @@ const style = (width, height) =>
       height: height,
       padding: 15,
     },
+    flexStyle:{
+      flexDirection:'row',
+      justifyContent:'space-around',
+      alignItems:'center',
+    },
     padding: {paddingRight: 15},
     image: {width: 28, height: 28, resizeMode: 'contain'},
     cartCount: {

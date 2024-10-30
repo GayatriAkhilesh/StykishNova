@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import {Image, TextInput, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import style from './style';
 
 const CustomTextInput = props => {
-  const {type, handleText, placeholder, value} = props;
+  const {type, handleText, placeholder, value, check = false} = props;
   const [show, setShow] = useState(false);
   const keyboardType =
     type === 'email'
@@ -32,10 +32,11 @@ const CustomTextInput = props => {
         placeholderTextColor={'#48301f'}
         keyboardType={keyboardType}
         secureTextEntry={secureTextEntry}
-        selectionColor={'#da335c'}
+        selectionColor={'#48301f'}
         onChangeText={handleText}
         value={value}
       />
+      {check ? <Text style={style.check}>Check</Text> : null}
       {!icon ? null : (
         <TouchableOpacity onPress={handlePassword} disabled={type !== 'password' ? true : false}>
         <Image

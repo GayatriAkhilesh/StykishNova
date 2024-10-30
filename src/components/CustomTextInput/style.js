@@ -25,6 +25,10 @@ const style= StyleSheet.create({
         height: width * 0.05 ,
         resizeMode:'contain',
         marginRight: width*0.025,
+    },
+    check:{
+        fontFamily:'Poppins-SemiBold',
+        color:'#48301f'
     }
     
 });
