@@ -1,6 +1,9 @@
-import {FlatList, Image, ImageBackground, Text, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../../../context';
 import style from './style';
+import {useEffect, useState} from 'react';
+import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const RecentBought = () => {
   const dimensions = useDimensionContext();
@@ -8,54 +11,57 @@ const RecentBought = () => {
     dimensions.windowWidth,
     dimensions.windowHeight,
   );
-  const recentItems = [
-    {
-      id: 0,
-      image: require('../../../../assets/images/new-product-dress-two.jpg'),
-    },
-    {
-      id: 1,
-      image: require('../../../../assets/images/high-heel-shoes.png'),
-    },
-    {
-      id: 2,
-      image: require('../../../../assets/images/full-body-portrait-happy-smiling-beautiful-young-woman-white.png'),
-    },
-    {
-      id: 3,
-      image: require('../../../../assets/images/cosmetic-parts-face-beauty.png'),
-    },
-    {
-      id: 4,
-      image: require('../../../../assets/images/sandal-beach-accessory-decoration-clothes.png'),
-    },
-    {
-      id: 5,
-      image: require('../../../../assets/images/beautiful-luxury-necklace-jewelry-stand-neck.png'),
-    },
-  ];
+
+  const navigation = useNavigation();
+
+  const [recentItems, setRecentItems] = useState([]);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = async () => {
+    await firestore()
+      .collection('Products')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('Its empty');
+        } else {
+          const result = [];
+          snapshot.docs.forEach(doc => {
+            if (doc.exists) {
+              result.push(doc.data());
+            }
+          });
+          setRecentItems(result);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const handleProduct = item =>{
+    navigation.navigate('ProductDetails',{ product:item})
+  }
+
   return (
     <View style={responsiveStyle.container}>
-      
-        <Text style={responsiveStyle.headText}>View your recently bought</Text>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => String(index)}
-          data={recentItems}
-          renderItem={({item, index}) => {
-            return (
-              <View style={responsiveStyle.contentView}>
-                <ImageBackground
-                  source={require('../../../../assets/images/gradient.png')}
-                  style={responsiveStyle.gradientBg}>
-                  <Image source={item.image} style={responsiveStyle.image} />
-                </ImageBackground>
-              </View>
-            );
-          }}
-        />
-      
+      <Text style={responsiveStyle.headText}>View your recently bought</Text>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => String(index)}
+        data={recentItems}
+        renderItem={({item, index}) => {
+          return (
+            <TouchableOpacity onPress={() => handleProduct(item)} style={responsiveStyle.contentView}>
+              <Image source={{uri: item.image}} style={responsiveStyle.image} />
+            </TouchableOpacity>
+          );
+        }}
+      />
     </View>
   );
 };

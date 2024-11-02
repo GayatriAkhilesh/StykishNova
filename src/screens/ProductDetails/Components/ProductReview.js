@@ -3,10 +3,13 @@ import {useDimensionContext} from '../../../context';
 import style from './style';
 import StarRating from 'react-native-star-rating-widget';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 
-const ProductReview = () => {
+const ProductReview = props => {
+  const{product} = props;
   const dimensions = useDimensionContext();
+  const navigation = useNavigation();
   const responsiveStyle = style(
     dimensions.windowWidth,
     dimensions.windowHeight,
@@ -15,7 +18,9 @@ const ProductReview = () => {
   const [rating, setRating] = useState(4);
 
 
-  const handleRedirect = () =>{};
+  const handleRedirect = () =>{
+    navigation.navigate('Review',{ product:product})
+  };
 
   return (
     <View style={responsiveStyle.reviewMainView}>
@@ -33,7 +38,7 @@ const ProductReview = () => {
           />
             <View>
           <Text style={responsiveStyle.reviewName}>Ana Alex</Text>
-          <StarRating rating={rating} onChange={setRating} starSize={20} color='#48301f' />
+          <StarRating rating={rating} onChange={() => {}} starSize={20} color='#48301f' />
           </View>
 
         </View>

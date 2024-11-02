@@ -1,4 +1,4 @@
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 import style from './style';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -27,6 +27,7 @@ const ProductDetails = () => {
   const [rating, setRating] = useState(4);
   const scrollRef = useRef(null);
   const [productDetailsObj, setProductDetails] = useState([]);
+  const [qun, setQun] = useState(1);
 
   useEffect(() => {
     navigation.setOptions({
@@ -42,10 +43,27 @@ const ProductDetails = () => {
 
   const navigationNeeded = (val, item) => {
     if (val) {
-      scrollRef.current.scrollTo({x:0, y:0, animated: true});
+      scrollRef.current.scrollTo({x: 0, y: 0, animated: true});
       setProductDetails(item);
     }
   };
+
+  const handleQuantity = type => {
+    if (type === 'plus') {
+      setQun(qun + 1);
+    } else {
+      if (qun === 1) {
+        return;
+      } else {
+        setQun(qun - 1);
+      }
+    }
+  };
+
+
+  const handleAddToCart = () => {
+    
+  }
 
   return (
     <View>
@@ -96,7 +114,7 @@ const ProductDetails = () => {
               </Text>
             </View>
             <Extrainfo />
-            <ProductReview />
+            <ProductReview product={product} />
             <DeliveryInfo />
           </View>
           <ProductScroll isNavigationNeeded={navigationNeeded} />
@@ -104,12 +122,17 @@ const ProductDetails = () => {
       </ScrollView>
       <View style={responsiveStyle.finalView}>
         <View style={responsiveStyle.quantity}>
-          <FontAwesome name="minus" size={15} color="#48301f" />
-
-          <Text style={responsiveStyle.quantityText}>1</Text>
-          <FontAwesome name="plus" size={15} color="#48301f" />
+          <TouchableOpacity onPress={() => handleQuantity('minus')}>
+            <FontAwesome name="minus" size={15} color="#48301f" />
+          </TouchableOpacity>
+          <Text style={responsiveStyle.quantityText}>{qun}</Text>
+          <TouchableOpacity onPress={() => handleQuantity('plus')}>
+            <FontAwesome name="plus" size={15} color="#48301f" />
+          </TouchableOpacity>
         </View>
-        <Text style={responsiveStyle.cartText}>Add to Cart</Text>
+        <TouchableOpacity onPress={handleAddToCart}>
+          <Text style={responsiveStyle.cartText}>Add to Cart</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

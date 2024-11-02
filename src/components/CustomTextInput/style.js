@@ -5,7 +5,7 @@ const {width, height} = Dimensions.get('screen');
 const style= StyleSheet.create({
     container:{
         flexDirection:'row',
-        alignItems:'center',
+        alignItems:"center",
         justifyContent:'space-between',
         backgroundColor:'#c6ab80',
         padding: width * 0.01,

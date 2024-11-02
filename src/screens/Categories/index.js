@@ -13,16 +13,23 @@ import {
 import CustomSearch from '../../components/CustomSearch';
 import {useDimensionContext} from '../../context';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 
 const Categories = () => {
   const dimension = useDimensionContext();
   const navigation = useNavigation();
+  const route = useRoute();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
   const {categories} = useSelector(state => state);
   const [products, setProducts] = useState([]);
   const [active, setActive] = useState(0);
+
+  const {catIndex} = route.params;
+  
+  useEffect(() => {
+    setActive(catIndex);
+  }, [catIndex]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -56,6 +63,10 @@ const Categories = () => {
 
   const handleCategoryTouch = index => {
     setActive(index);
+  };
+
+  const handleProduct = item => {
+    navigation.navigate('ProductDetails', {product: item});
   };
 
   return (
@@ -104,7 +115,9 @@ const Categories = () => {
                 contentContainerStyle={responsiveStyle.prostyle}
                 renderItem={({item, index}) => {
                   return (
-                    <TouchableOpacity style={responsiveStyle.proContaioner}>
+                    <TouchableOpacity
+                      style={responsiveStyle.proContaioner}
+                      onPress={() => handleProduct(item)}>
                       <View style={responsiveStyle.imageBg}>
                         <Image
                           source={{uri: item.image}}

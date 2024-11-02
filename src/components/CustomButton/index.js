@@ -3,7 +3,7 @@ import {Image, Text, TouchableOpacity} from 'react-native';
 import style from './style';
 
 const CustomButton = props => {
-  const {type, handleButtonPress, buttonText,icon} = props;
+  const {type, handleButtonPress, buttonText, icon} = props;
   return (
     <TouchableOpacity
       onPress={handleButtonPress}
@@ -13,7 +13,7 @@ const CustomButton = props => {
           backgroundColor: type === 'primary' ? '#48301f' : '#c6ab80',
         },
       ]}>
-        {type !== 'primary' ? <Image source={icon} style={style.icon}/> : null}
+      {type !== 'primary' ? <Image source={icon} style={style.icon} /> : null}
       <Text
         style={[
           style.buttonText,

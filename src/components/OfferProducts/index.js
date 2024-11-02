@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './style';
-import {FlatList, Image, Text, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 import CommonSectionHeader from '../CommonSectionHeader';
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
 
 const OfferProducts = () => {
   const dimensions = useDimensionContext();
@@ -10,72 +12,40 @@ const OfferProducts = () => {
     dimensions.windowWidth,
     dimensions.windowHeight,
   );
-  const products = [
-    {
-      id: 0,
-      name: 'Dress',
-      content: 'Round Neck Short Sleeve Jumpsuit with Pockets',
-      Price: 1399,
-      image: require('../../assets/images/new-product-dress.jpg'),
-      off: '20%',
-    },
-    {
-      id: 1,
-      name: 'Shrugs',
-      content: 'Madame Fleece Collar Grey Longline Shrug',
-      Price: 1574,
-      image: require('../../assets/images/new-product-dress-two.jpg'),
-      off: '20%',
-    },
-    {
-      id: 2,
-      name: 'HandBag',
-      content: 'Miraggio Simone Saddle Women Shoulder Handbag',
-      Price: 1992,
-      image: require('../../assets/images/new-product-bag.jpg'),
-      off: '20%',
-    },
-    {
-      id: 3,
-      name: ' Earring',
-      content: 'Skagen Women Kariana Rose Gold Earring ',
-      Price: 4495,
-      image: require('../../assets/images/new-product-earring.jpg'),
-      off: '20%',
-    },
-    {
-      id: 4,
-      name: 'Fancy Flats',
-      content: 'Tao Paris Leather Flats Sandal Pink Stylish Wear ',
-      Price: 3990,
-      image: require('../../assets/images/new-product-footwear.jpg'),
-      off: '20%',
-    },
-    {
-      id: 5,
-      name: 'SkinCare',
-      content: ' Vitamin C  Serum For Glowing Skin For Dark Spots',
-      Price: 196,
-      image: require('../../assets/images/new-product-skincare.jpg'),
-      off: '20%',
-    },
-    {
-      id: 6,
-      name: 'Casual Pants',
-      content: 'RIVER by Narendra Kumar Designer Casual Pants',
-      Price: 1987,
-      image: require('../../assets/images/new-product-pants.jpg'),
-      off: '20%',
-    },
-    {
-      id: 7,
-      name: 'Pendant Set',
-      content: 'GIVA 925 Silver Rose Gold Pendant Set ',
-      Price: 2879,
-      image: require('../../assets/images/new-product-comboset-jewellery.jpg'),
-      off: '20%',
-    },
-  ];
+  const navigation = useNavigation();
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = async () => {
+    await firestore()
+      .collection('Products')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('Its empty');
+        } else {
+          const result = [];
+          snapshot.docs.forEach(doc => {
+            if (doc.exists) {
+              result.push(doc.data());
+            }
+          });
+          setProducts(result);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const handleProduct = item => {
+    navigation.navigate('ProductDetails', {product: item});
+  };
+
   return (
     <View style={responsiveStyle.container}>
       <CommonSectionHeader
@@ -91,9 +61,11 @@ const OfferProducts = () => {
           keyExtractor={(item, index) => String(index)}
           renderItem={({item, index}) => {
             return (
-              <View style={responsiveStyle.productView}>
+              <TouchableOpacity
+                onPress={() => handleProduct(item)}
+                style={responsiveStyle.productView}>
                 <Image
-                  source={item.image}
+                  source={{uri: item.image}}
                   style={responsiveStyle.productImage}
                 />
                 <View style={responsiveStyle.productNameView}>
@@ -101,13 +73,13 @@ const OfferProducts = () => {
                     {item.name}
                   </Text>
                   <Text style={responsiveStyle.dis} numberOfLines={1}>
-                    {item.content}
+                    {item.description}
                   </Text>
                   <View style={responsiveStyle.priceView}>
                     <View style={responsiveStyle.priceView2}>
-                      <Text style={responsiveStyle.price}>₹ {item.Price}</Text>
+                      <Text style={responsiveStyle.price}>₹ {item.price}</Text>
                       <View style={responsiveStyle.offView}>
-                        <Text style={responsiveStyle.offText}>{item.off}</Text>
+                        <Text style={responsiveStyle.offText}>25%</Text>
                       </View>
                     </View>
                     <View style={responsiveStyle.quantityView}>
@@ -117,7 +89,7 @@ const OfferProducts = () => {
                     </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />

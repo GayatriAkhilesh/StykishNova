@@ -24,6 +24,7 @@ import {store} from '../../storage/store';
 import Splash from '../Splash';
 import Shop from '../shop';
 import ProductDetails from '../ProductDetails';
+import Review from '../Review';
 
 const Drawer = createDrawerNavigator();
 const AppDrawer = props => {
@@ -46,6 +47,7 @@ const AppDrawer = props => {
       <Drawer.Screen name="Account" component={Account} />
       <Drawer.Screen name="Shop" component={Shop} />
       <Drawer.Screen name="ProductDetails" component={ProductDetails} />
+      <Drawer.Screen name="Review" component={Review} />
 
     </Drawer.Navigator>
   );

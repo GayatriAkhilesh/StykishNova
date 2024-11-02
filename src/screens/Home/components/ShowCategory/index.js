@@ -1,16 +1,19 @@
-import {FlatList, Image, ImageBackground, Text, View} from 'react-native';
+import {FlatList, Image, ImageBackground, Text, TouchableOpacity, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import style from './style';
 import {useDimensionContext} from '../../../../context';
 import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {updatecategories} from '../../../../storage/action';
+import { useNavigation } from '@react-navigation/native';
 
 const ShowCategory = () => {
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.width, dimension.height);
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     getCategories();
@@ -41,6 +44,10 @@ const ShowCategory = () => {
       });
   };
 
+  const handleCategories = index =>{
+    navigation.navigate('Category', {catIndex:index})
+  }
+
   return (
     <View style={responsiveStyle.container}>
       <ImageBackground
@@ -54,7 +61,7 @@ const ShowCategory = () => {
           keyExtractor={(item, index) => String(index)}
           renderItem={({item, index}) => {
             return (
-              <View style={responsiveStyle.innerView}>
+              <TouchableOpacity onPress={() => handleCategories(index)} style={responsiveStyle.innerView}>
                 <View style={responsiveStyle.imageView}>
                   <Image
                     style={responsiveStyle.image}
@@ -62,7 +69,7 @@ const ShowCategory = () => {
                   />
                 </View>
                 <Text style={responsiveStyle.itemName}>{item.name}</Text>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />
