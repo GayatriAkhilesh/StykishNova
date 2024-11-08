@@ -12,6 +12,9 @@ import Extrainfo from './Components/Extrainfo';
 import ProductReview from './Components/ProductReview';
 import DeliveryInfo from './Components/DeliveryInfo';
 import ProductScroll from '../../components/ProductScroll';
+import firestore from '@react-native-firebase/firestore';
+import {updateCartCount} from '../../storage/action';
+import {useDispatch, useSelector} from 'react-redux';
 
 const ProductDetails = () => {
   const dimensions = useDimensionContext();
@@ -23,11 +26,14 @@ const ProductDetails = () => {
 
   const route = useRoute();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {product} = route.params;
   const [rating, setRating] = useState(4);
   const scrollRef = useRef(null);
   const [productDetailsObj, setProductDetails] = useState([]);
   const [qun, setQun] = useState(1);
+  const {userId, cartCount} = useSelector(state => state);
+
 
   useEffect(() => {
     navigation.setOptions({
@@ -60,10 +66,37 @@ const ProductDetails = () => {
     }
   };
 
-
-  const handleAddToCart = () => {
-    
-  }
+  const handleAddToCart = async () => {
+    await firestore()
+      .collection('Cart')
+      .where('userId', '==', userId)
+      .where('productId', '==', productDetailsObj.id)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          firestore()
+            .collection('Cart')
+            .add({
+              created: '' + Date.now() + '',
+              description: productDetailsObj.description,
+              name: productDetailsObj.name,
+              price: productDetailsObj.price,
+              quantity: qun,
+              userId: userId,
+              productId: productDetailsObj.id,
+              image: productDetailsObj.image,
+            });
+          dispatch(updateCartCount(cartCount + 1));
+        } else {
+          firestore()
+            .collection('Cart')
+            .doc(snapshot?.docs[0].id)
+            .update({
+              quantity: parseInt(snapshot?.docs[0].data().quantity, 10) + 1,
+            });
+        }
+      });
+  };
 
   return (
     <View>

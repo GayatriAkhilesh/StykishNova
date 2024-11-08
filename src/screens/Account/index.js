@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import style from './style';
-import {Image, Modal, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Modal,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
 import {useNavigation} from '@react-navigation/native';
 import {useDimensionContext} from '../../context';
@@ -143,7 +150,9 @@ const Account = () => {
     }
   };
   return (
-    <View style={responsiveStyle.container}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={responsiveStyle.container}>
       <Text style={responsiveStyle.head}>
         {firstName} {lastName}
       </Text>
@@ -251,7 +260,7 @@ const Account = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 

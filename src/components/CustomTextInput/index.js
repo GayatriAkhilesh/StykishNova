@@ -55,7 +55,7 @@ const CustomTextInput = props => {
                   : dimensions.windowHeight * 0.04
                 : multiline
                 ? dimensions.windowHeight * 0.20
-                : dimensions.windowHeight * 0.02,
+                : dimensions.windowHeight * 0.06,
           },
         ]}
         placeholder={placeholder}

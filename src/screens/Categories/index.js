@@ -24,11 +24,14 @@ const Categories = () => {
   const {categories} = useSelector(state => state);
   const [products, setProducts] = useState([]);
   const [active, setActive] = useState(0);
+console.warn(route.params);
 
-  const {catIndex} = route.params;
-  
+  const {catIndex = 0} = route?.params ?? {};
+
   useEffect(() => {
-    setActive(catIndex);
+    if (catIndex) {
+      setActive(catIndex);
+    }
   }, [catIndex]);
 
   useEffect(() => {

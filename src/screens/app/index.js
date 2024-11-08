@@ -25,6 +25,8 @@ import Splash from '../Splash';
 import Shop from '../shop';
 import ProductDetails from '../ProductDetails';
 import Review from '../Review';
+import AddAddress from '../AddAddress';
+// import TestGeolocation from '../TestGeolocation';
 
 const Drawer = createDrawerNavigator();
 const AppDrawer = props => {
@@ -48,6 +50,8 @@ const AppDrawer = props => {
       <Drawer.Screen name="Shop" component={Shop} />
       <Drawer.Screen name="ProductDetails" component={ProductDetails} />
       <Drawer.Screen name="Review" component={Review} />
+      <Drawer.Screen name="AddAddress" component={AddAddress} />
+      {/* <Drawer.Screen name="TestGeolocation" component={TestGeolocation} /> */}
 
     </Drawer.Navigator>
   );

@@ -10,6 +10,7 @@ const style = (width, height, isPortrait) =>
         justifyContent:'center',
         alignItems:'center',
         marginVertical:15,
+        alignSelf:'center',
     },
     text:{
         color:'#fff',

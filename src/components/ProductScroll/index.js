@@ -5,6 +5,8 @@ import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 import CommonSectionHeader from '../CommonSectionHeader';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateCartCount} from '../../storage/action';
 
 const ProductScroll = props => {
   const {isNavigationNeeded} = props;
@@ -16,7 +18,8 @@ const ProductScroll = props => {
 
   const navigation = useNavigation();
   const route = useRoute();
-
+  const {userId, cartCount} = useSelector(state => state);
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -34,7 +37,8 @@ const ProductScroll = props => {
           const result = [];
           snapshot.docs.forEach(doc => {
             if (doc.exists) {
-              result.push(doc.data());
+              const responseData = {id: doc.id, ...doc?.data()};
+              result.push(responseData);
             }
           });
           setProducts(result);
@@ -53,6 +57,38 @@ const ProductScroll = props => {
         product: item,
       });
     }
+  };
+
+  const addToCart = async item => {
+    await firestore()
+      .collection('Cart')
+      .where('userId', '==', userId)
+      .where('productId', '==', item.id)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          firestore()
+            .collection('Cart')
+            .add({
+              created: '' + Date.now() + '',
+              description: item.description,
+              name: item.name,
+              price: item.price,
+              quantity: 1,
+              userId: userId,
+              productId: item.id,
+              image: item.image,
+            });
+          dispatch(updateCartCount(cartCount + 1));
+        } else {
+          firestore()
+            .collection('Cart')
+            .doc(snapshot?.docs[0].id)
+            .update({
+              quantity: parseInt(snapshot?.docs[0].data().quantity, 10) + 1,
+            });
+        }
+      });
   };
 
   return (
@@ -135,7 +171,8 @@ const ProductScroll = props => {
                     }}>
                     ₹{item.price}
                   </Text>
-                  <View
+                  <TouchableOpacity
+                    onPress={() => addToCart(item)}
                     style={{
                       padding: 3,
                       backgroundColor: '#48301f',
@@ -149,7 +186,7 @@ const ProductScroll = props => {
                       }}>
                       +
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </TouchableOpacity>
             );

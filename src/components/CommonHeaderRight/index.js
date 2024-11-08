@@ -3,9 +3,12 @@ import style from './style';
 import {useNavigation} from '@react-navigation/native';
 import {useDimensionContext} from '../../context';
 import Feather from 'react-native-vector-icons/Feather';
+import { useSelector } from 'react-redux';
 
 const CommonHeaderRight = props => {
   const navigation = useNavigation();
+  const {cartCount} = useSelector(state => state);
+
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
 
@@ -51,7 +54,7 @@ const CommonHeaderRight = props => {
           onPress={() => handleClick('cart')}>
           <>
             <View style={responsiveStyle.cartCount}>
-              <Text style={responsiveStyle.count}>3</Text>
+              <Text style={responsiveStyle.count}>{cartCount}</Text>
             </View>
             <Image
               source={require('../../assets/images/wishlist-cart.png')}

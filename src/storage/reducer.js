@@ -1,4 +1,4 @@
-import {LOGIN, SIGNOUT, UPDATEPROFILE, UPDATECATEGORIES} from './constants';
+import {LOGIN, SIGNOUT, UPDATEPROFILE, UPDATECATEGORIES, UPDATECARTCOUNT} from './constants';
 
 const initialState = {
   isLoggedIn: false,
@@ -9,6 +9,7 @@ const initialState = {
   mobilenumber: '',
   profileImage: '',
   categories: [],
+  cartCount: 0,
 };
 
 export const stylishNovaReducer = (state = initialState, action) => {
@@ -46,12 +47,16 @@ export const stylishNovaReducer = (state = initialState, action) => {
         isLoggedIn: true,
       };
     case UPDATECATEGORIES:
-      
       return {
         ...state,
-        categories:[...action.payload.categories],
+        categories: [...action.payload.categories],
+      };
+    case UPDATECARTCOUNT:
+      return {
+        ...state,
+        cartCount: action.payload.cartCount,
       };
     default:
       return state;
-  };
+  }
 };

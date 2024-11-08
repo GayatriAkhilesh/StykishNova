@@ -1,6 +1,10 @@
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import style from './style';
-import { useDimensionContext } from '../../context';
+import {useDimensionContext} from '../../context';
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import firestore from '@react-native-firebase/firestore';
+import { updateCartCount } from '../../storage/action';
 
 const CustomFooter = ({state, descriptors, navigation}) => {
   const dimensions = useDimensionContext();
@@ -10,9 +14,28 @@ const CustomFooter = ({state, descriptors, navigation}) => {
     dimensions.isPortrait,
   );
 
+  const {cartCount, userId} = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getCartProducts();
+  }, []);
+
+  const getCartProducts = async () => {
+    await firestore()
+      .collection('Cart')
+      .where('userId', '==', userId)
+      .get()
+      .then(snapshot => {
+        dispatch(updateCartCount(snapshot.size))
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
-    <View
-      style={responsiveStyle.mainContainer}>
+    <View style={responsiveStyle.mainContainer}>
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         const icon =
@@ -30,21 +53,18 @@ const CustomFooter = ({state, descriptors, navigation}) => {
             key={index}
             onPress={() => navigation.navigate(route.name)}
             style={responsiveStyle.touchContainer}>
-                          {isFocused? <Text style={responsiveStyle.dot}>.</Text>: null}
-                          {route.name === 'Cart' ? (
-                            <View style={responsiveStyle.cartCount}>
-                              <Text style={responsiveStyle.count}>3</Text>
-                            </View>
-                          ): null}
+            {isFocused ? <Text style={responsiveStyle.dot}>.</Text> : null}
+            {route.name === 'Cart' ? (
+              <View style={responsiveStyle.cartCount}>
+                <Text style={responsiveStyle.count}>{cartCount}</Text>
+              </View>
+            ) : null}
 
-            <Image
-              source={icon}
-              style={responsiveStyle.iconStyle}
-            />
-            <Text
+            <Image source={icon} style={responsiveStyle.iconStyle} />
+            {/* <Text
               style={responsiveStyle.footerText}>
               {route.name}
-            </Text>
+            </Text> */}
           </TouchableOpacity>
         );
       })}

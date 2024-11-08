@@ -4,13 +4,14 @@ const style = (width, height, isPortrait) =>
   StyleSheet.create({
     container: {
       height: height,
-      padding:15,
+      padding: 15,
+      marginBottom: 25,
     },
     productView: {
       width: '100%',
       padding: 8,
       marginRight: 15,
-      marginVertical: 15,
+      marginVertical: 5,
       borderRadius: 10,
       flexDirection: 'row',
       alignItems: 'center',
@@ -95,21 +96,36 @@ const style = (width, height, isPortrait) =>
       width: width,
       alignSelf: 'center',
       justifyContent: 'center',
-      marginBottom: height * 0.015,
+      marginVertical: height * 0.015,
     },
-    offCircleView:{marginRight: (-height * 0.025) / 2, zIndex: 99},
-    circleRight:{
+    offCircleView: {marginRight: (-height * 0.025) / 2, zIndex: 99},
+    circleRight: {
       width: 25,
       height: 25,
       borderRadius: 25 / 2,
       backgroundColor: '#f2f2f2',
     },
-    circleCenter:{
+    circleCenter: {
       width: 25,
       height: 25,
       borderRadius: 25 / 2,
       backgroundColor: '#f2f2f2',
       marginTop: -25 / 2,
+    },
+    emptyView: {
+      backgroundColor: '#fff',
+      width: '90%',
+      height: '45%',
+      alignSelf:'center',
+      flexDirection:'column',
+      alignItems:'center',
+      justifyContent:'center',
+    },
+    emptyText:{
+      fontFamily:'Poppins-Italic',
+      color:'#48301f',
+      fontSize:20,
+      padding:10,
     },
   });
 
