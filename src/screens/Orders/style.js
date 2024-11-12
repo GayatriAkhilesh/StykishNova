@@ -6,7 +6,7 @@ const style = (width, height) =>
       height: height,
     },
     flatView:{
-      backgroundColor: '#f7d2db',
+      backgroundColor: '#c6ab80',
       borderRadius: 12,
       padding: 15,
       overflow: 'hidden',
@@ -50,7 +50,7 @@ const style = (width, height) =>
       fontSize: 16,
     },
     address:{
-      color: 'grey',
+      color: '#48301f',
       fontFamily: 'Poppins-Regular',
       fontSize: 14,
     },
@@ -63,6 +63,28 @@ const style = (width, height) =>
       color: '#48301f',
       fontFamily: 'Poppins-Regular',
       fontSize: 14,
+    },
+    emptyView:{
+      padding:15,
+      justifyContent:'center',
+      alignItems:'center',
+    },
+    emptyText:{
+      fontFamily:'Poppins-Italic',
+      fontSize:20,
+      color:'#48301f',
+    },
+    wishButton:{
+      fontFamily:'Poppins-Regular',
+      fontSize:16,
+      color:'#fff',
+    },
+    buttonView:{
+      margin:20,
+      padding:10,
+      justifyContent:'center',
+      alignItems:'center',
+      backgroundColor:'#48301f',
     },
   });
 

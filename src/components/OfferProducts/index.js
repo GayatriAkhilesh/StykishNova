@@ -73,7 +73,8 @@ const RenderItem = ({item, index}) => {
     dimensions.windowWidth,
     dimensions.windowHeight,
   );
-  const {userId, cartCount} = useSelector(state => state);
+  const userId = (state => state.userId);
+  const cartCount = useSelector(state => state.cartCount);
 
   const [qun, setQun] = useState(0);
   const dispatch = useDispatch();

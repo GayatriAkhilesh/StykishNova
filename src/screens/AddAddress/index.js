@@ -20,8 +20,9 @@ import Snackbar from 'react-native-snackbar';
 import RazorpayCheckout from 'react-native-razorpay';
 import Geolocation from '@react-native-community/geolocation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import firestore, {doc} from '@react-native-firebase/firestore';
+import {updateCartCount} from '../../storage/action';
 navigator.geolocation = require('@react-native-community/geolocation');
 
 const AddAddress = () => {
@@ -34,13 +35,16 @@ const AddAddress = () => {
   const route = useRoute();
   const {cartProducts, total} = route.params;
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [newPosition, setNewPosition] = useState({});
   const [address, setAddress] = useState('');
   const [loading, setLoading] = useState(false);
-  const {userId, firstName, lastName, email, mobilenumber} = useSelector(
-    state => state,
-  );
+  const userId = useSelector(state => state.userId);
+  const firstName = useSelector(state => state.firstName);
+  const lastName = useSelector(state => state.lastName);
+  const email = useSelector(state => state.email);
+  const mobilenumber = useSelector(state => state.mobilenumber);
 
   useEffect(() => {
     getCurrentLocation();
@@ -87,7 +91,7 @@ const AddAddress = () => {
       })
       .then(async resp => {
         console.warn(resp, '----------');
-        
+
         await firestore()
           .collection('Cart')
           .where('userId', '==', userId)
@@ -98,7 +102,16 @@ const AddAddress = () => {
                 .delete()
                 .then(() => {
                   setLoading(false);
-                  navigation.goBack();
+                  dispatch(updateCartCount(0));
+                  Snackbar.show({
+                    text: 'Order placed successfully. ',
+                    duration: Snackbar.LENGTH_LONG,
+                    backgroundColor: 'green',
+                    textColor: 'white',
+                  });
+                  setTimeout(() => {
+                    navigation.goBack();
+                  }, 2000);
                 })
                 .catch(err => {
                   console.warn(err);
@@ -106,7 +119,6 @@ const AddAddress = () => {
             });
           });
       });
-    
   };
 
   const onButtonPress = () => {
@@ -114,7 +126,7 @@ const AddAddress = () => {
       description: 'You are paying to StylishNova',
       image: 'https://i.imgur.com/3g7nmJC.png',
       currency: 'INR',
-      key: '************************', // Your api key
+      key: '**********************', // Your api key
       amount: parseInt(total, 10) * 100,
       name: 'StylishNova',
       prefill: {
@@ -126,18 +138,17 @@ const AddAddress = () => {
     };
     RazorpayCheckout.open(options)
       .then(data => {
-        // handle success
         setLoading(true);
         handleCreateOrder(data.razorpay_payment_id);
-        // console.log('=================');
-        // console.log(data.razorpay_payment_id);
-        // console.log('=================');
       })
       .catch(error => {
-        // handle failure
-        console.log('==================');
-        console.log(`Error: ${error.code} | ${error.description}`);
-        console.log('==================');
+        Snackbar.show({
+          text: 'Order Failed, Please try again! ',
+          duration: Snackbar.LENGTH_LONG,
+          backgroundColor: '#d20a2e',
+          textColor: 'white',
+        });
+        navigation.goBack();
       });
   };
 
@@ -145,7 +156,7 @@ const AddAddress = () => {
     <View style={responsiveStyle.container}>
       <Modal animationType="fade" transparent={true} visible={loading}>
         <View style={responsiveStyle.activityIndi}>
-          <ActivityIndicator size={'small'} color="#fff" />
+          <ActivityIndicator size={'large'} color="#fff" />
         </View>
       </Modal>
       <ScrollView
@@ -154,13 +165,13 @@ const AddAddress = () => {
         <GooglePlacesAutocomplete
           placeholder="Search Location"
           currentLocation={true}
-          enableHighAccuracyLocation={true}
+          // enableHighAccuracyLocation={true}
           fetchDetails={true}
-          timeout={5000}
-          maximumAge={10000}
+          // timeout={5000}
+          // maximumAge={10000}
           currentLocationLabel="Current Location"
           query={{
-            key: '********************',
+            key: '**************',
             language: 'en',
           }}
           styles={{
@@ -182,6 +193,44 @@ const AddAddress = () => {
         />
 
         <MapView
+          key={newPosition.latitude}
+          style={responsiveStyle.mapView}
+          initialRegion={
+            newPosition.latitude && newPosition.longitude ? newPosition : null
+          }
+          region={
+            newPosition.latitude && newPosition.longitude ? newPosition : null
+          }
+          showsUserLocation={true}
+          followsUserLocation={true}
+          zoomEnabled={true}
+          pitchEnabled={true}
+          rotateEnabled={true}
+          scrollEnabled={true}
+          showsMyLocationButton={true}>
+          {newPosition.latitude && newPosition.longitude && address && (
+            <Marker
+              title={address ?? ''}
+              description="This is your marker"
+              coordinate={newPosition}
+              draggable={true}
+            />
+          )}
+        </MapView>
+        {address && (
+          <View style={{paddingHorizontal: 15, paddingTop: 15}}>
+            <Text
+              style={{
+                fontFamily: 'Lato-Regular',
+                fontSize: 18,
+                color: '#000',
+              }}>
+              {address}
+            </Text>
+          </View>
+        )}
+
+        {/* <MapView
           style={{width: '100%', height: 300}}
           initialRegion={{
             latitude: 37.78825,
@@ -206,7 +255,33 @@ const AddAddress = () => {
               longitudeDelta: 0.0421,
             }}
           />
-        </MapView>
+        </MapView> */}
+
+        {/* <MapView
+            key={newPosition.latitude}
+            style={responsiveStyle.mapView}
+            initialRegion={
+              newPosition.latitude && newPosition.longitude ? newPosition : null
+            }
+            region={
+              newPosition.latitude && newPosition.longitude ? newPosition : null
+            }
+            showsUserLocation={true}
+            followsUserLocation={true}
+            zoomEnabled={true}
+            pitchEnabled={true}
+            rotateEnabled={true}
+            scrollEnabled={true}
+            showsMyLocationButton={true}>
+            {newPosition.latitude && newPosition.longitude && (
+              <Marker
+                title="You are here"
+                description="This is your marker"
+                coordinate={newPosition}
+                draggable={true}
+              />
+            )}
+          </MapView> */}
 
         {/* {newPosition && (
         <MapView

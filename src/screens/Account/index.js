@@ -29,8 +29,12 @@ const Account = () => {
   const dimension = useDimensionContext();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
   const dispatch = useDispatch();
-  const {userId, firstName, lastName, email, mobilenumber, profileImage} =
-    useSelector(state => state);
+  const firstName = useSelector(state => state.firstName);
+  const lastName = useSelector(state => state.lastName);
+  const email = useSelector(state => state.email);
+  const userId = useSelector(state => state.userId);
+  const mobilenumber = useSelector(state => state.mobilenumber);
+  const profileImage = useSelector(state => state.profileImage);
 
   const [fName, setFname] = useState(firstName);
   const [lname, setLname] = useState(lastName);

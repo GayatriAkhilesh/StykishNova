@@ -56,7 +56,9 @@ const style = (width, height, isPortrait) =>
     activityIndi:{
       height:'100%',
       width:'100%',
-      backgroundColor:'rgba(0,0,0,0.7)'
+      backgroundColor:'rgba(0,0,0,0.7)',
+      justifyContent:'center',
+      alignItems:'center',
     }
   });
 

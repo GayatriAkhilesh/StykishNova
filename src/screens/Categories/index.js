@@ -21,7 +21,7 @@ const Categories = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
-  const {categories} = useSelector(state => state);
+  const categories = useSelector(state => state.categories);
   const [products, setProducts] = useState([]);
   const [active, setActive] = useState(0);
 console.warn(route.params);

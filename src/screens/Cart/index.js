@@ -11,7 +11,11 @@ import {
 import {useDimensionContext} from '../../context';
 import OrderTotal from './components/OrderTotal';
 import CommonButton from '../../components/CommonButton';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
 import firestore from '@react-native-firebase/firestore';
 import {useDispatch, useSelector} from 'react-redux';
@@ -26,17 +30,22 @@ const Cart = () => {
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
-  const {userId, cartCount, email, mobilenumber} = useSelector(state => state);
+  const userId= useSelector(state => state.userId);
+  const  cartCount = useSelector(state => state.cartCount);
+  const  email = useSelector(state => state.email);
+  const mobilenumber = useSelector(state => state.mobilenumber);
   const dispatch = useDispatch();
   const [cartProducts, setCartProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [charges, setCharges] = useState(50);
 
-  useFocusEffect(
-    useCallback(() => {
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
       getCartProducts();
-    }, []),
-  );
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -52,9 +61,7 @@ const Cart = () => {
       .where('userId', '==', userId)
       .get()
       .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('Its empty');
-        } else {
+        if (!snapshot.empty) {
           const result = [];
           let totalAmount = 0;
           snapshot.docs.forEach(doc => {
@@ -68,6 +75,9 @@ const Cart = () => {
           });
           setTotal(totalAmount);
           setCartProducts(result);
+        } else {
+          setCartProducts([]);
+          setTotal(0);
         }
       })
       .catch(err => {
@@ -310,7 +320,7 @@ const RenderItem = ({item, index, updateArray, handleTotal}) => {
     dimensions.windowHeight,
     dimensions.isPortrait,
   );
-  const {userId} = useSelector(state => state);
+  const userId = useSelector(state => state.userId);
   const [qun, setQun] = useState(item.quantity);
 
   useEffect(() => {

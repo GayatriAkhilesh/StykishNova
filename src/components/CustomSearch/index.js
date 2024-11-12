@@ -4,7 +4,7 @@ import {Image, Text, TextInput, View} from 'react-native';
 import {useDimensionContext} from '../../context';
 
 const CustomSearch = props => {
-  const {filter} = {...props};
+  const {filter, placeholder, mike = true, onChangeText = {}} = {...props};
   const dimensions = useDimensionContext();
   const responsiveStyle = style(
     dimensions.windowWidth,
@@ -23,16 +23,21 @@ const CustomSearch = props => {
             style={responsiveStyle.searchIcon}
           />
           <TextInput
-            placeholder="Find your needs here . . ."
+            placeholder={
+              placeholder ? placeholder : 'Find your needs here . . .'
+            }
             placeholderTextColor={'#48301f'}
             style={responsiveStyle.textInput}
             selectionColor={'#48301f'}
+            onChangeText={text => onChangeText(text)}
           />
         </View>
-        <Image
-          source={require('../../assets/images/mic-home.png')}
-          style={responsiveStyle.searchIcon}
-        />
+        {mike ? (
+          <Image
+            source={require('../../assets/images/mic-home.png')}
+            style={responsiveStyle.searchIcon}
+          />
+        ) : null}
       </View>
       {filter ? <Text style={responsiveStyle.filter}>Filter</Text> : null}
     </View>

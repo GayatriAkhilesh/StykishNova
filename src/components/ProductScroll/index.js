@@ -7,6 +7,7 @@ import CommonSectionHeader from '../CommonSectionHeader';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {updateCartCount} from '../../storage/action';
+import Snackbar from 'react-native-snackbar';
 
 const ProductScroll = props => {
   const {isNavigationNeeded} = props;
@@ -18,7 +19,8 @@ const ProductScroll = props => {
 
   const navigation = useNavigation();
   const route = useRoute();
-  const {userId, cartCount} = useSelector(state => state);
+  const  userId = useSelector(state => state.userId);
+  const cartCount = useSelector(state => state.cartCount);
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 
@@ -91,6 +93,31 @@ const ProductScroll = props => {
       });
   };
 
+  const addTowishlist = productDetails => {
+    console.warn(productDetails);
+    firestore()
+            .collection('Wishlist')
+            .add({
+              created: '' + Date.now() + '',
+              updated: '' + Date.now() + '',
+              description: productDetails.description,
+              name: productDetails.name,
+              price: productDetails.price,
+              quantity: 1,
+              userId: userId,
+              image: productDetails.image,
+              categoryId: productDetails.categoryId,
+              productId:productDetails.id,
+            }).then(resp =>{
+              Snackbar.show({
+                text: 'Item has been added to the wishlist.',
+                duration: Snackbar.LENGTH_LONG,
+                backgroundColor: 'green',
+                textColor: 'white',
+              });
+            })
+  };
+
   return (
     <View style={responsiveStyle.container}>
       <CommonSectionHeader
@@ -119,15 +146,17 @@ const ProductScroll = props => {
                   borderWidth: 1,
                   borderColor: '#845b49',
                 }}>
-                <Image
-                  source={require('../../assets/images/wishlist-product-outline.png')}
-                  style={{
-                    width: 18,
-                    height: 18,
-                    resizeMode: 'contain',
-                    alignSelf: 'flex-end',
-                  }}
-                />
+                <TouchableOpacity onPress={() => addTowishlist(item)}>
+                  <Image
+                    source={require('../../assets/images/wishlist-product-outline.png')}
+                    style={{
+                      width: 18,
+                      height: 18,
+                      resizeMode: 'contain',
+                      alignSelf: 'flex-end',
+                    }}
+                  />
+                </TouchableOpacity>
                 <Image
                   source={{uri: item.image}}
                   style={{

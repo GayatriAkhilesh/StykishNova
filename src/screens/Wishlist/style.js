@@ -23,7 +23,7 @@ const style = (width, height) =>
       flexDirection: 'row',
       alignItems: 'center',
       width: width * 0.95,
-      padding: 15,
+      padding: 10,
       backgroundColor: '#fff',
       marginTop: 10,
       marginBottom:15,
@@ -78,7 +78,7 @@ const style = (width, height) =>
     },
     desc: {
       fontFamily: 'Poppins-Regular',
-      fontSize: 14,
+      fontSize: 13,
       color: '#0c0908',
     },
     bottomView: {
@@ -109,6 +109,28 @@ const style = (width, height) =>
       fontFamily: 'Poppins-Regular',
       fontSize: 14,
       color: '#48301f',
+    },
+    emptyView:{
+      padding:15,
+      justifyContent:'center',
+      alignItems:'center',
+    },
+    emptyText:{
+      fontFamily:'Poppins-Italic',
+      fontSize:20,
+      color:'#48301f',
+    },
+    wishButton:{
+      fontFamily:'Poppins-Regular',
+      fontSize:16,
+      color:'#fff',
+    },
+    buttonView:{
+      margin:20,
+      padding:10,
+      justifyContent:'center',
+      alignItems:'center',
+      backgroundColor:'#48301f',
     },
   });
 

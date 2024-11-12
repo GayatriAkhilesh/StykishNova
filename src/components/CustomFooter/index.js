@@ -14,7 +14,8 @@ const CustomFooter = ({state, descriptors, navigation}) => {
     dimensions.isPortrait,
   );
 
-  const {cartCount, userId} = useSelector(state => state);
+  const  userId = useSelector(state => state.userId);
+  const cartCount = useSelector(state => state.cartCount);
   const dispatch = useDispatch();
 
   useEffect(() => {

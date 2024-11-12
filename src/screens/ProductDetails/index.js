@@ -32,8 +32,8 @@ const ProductDetails = () => {
   const scrollRef = useRef(null);
   const [productDetailsObj, setProductDetails] = useState([]);
   const [qun, setQun] = useState(1);
-  const {userId, cartCount} = useSelector(state => state);
-
+  const userId = useSelector(state => state.userId);
+  const cartCount = useSelector(state => state.cartCount);
 
   useEffect(() => {
     navigation.setOptions({

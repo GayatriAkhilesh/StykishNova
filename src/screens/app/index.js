@@ -26,6 +26,7 @@ import Shop from '../shop';
 import ProductDetails from '../ProductDetails';
 import Review from '../Review';
 import AddAddress from '../AddAddress';
+import OrderDetails from '../OrderDetails';
 // import TestGeolocation from '../TestGeolocation';
 
 const Drawer = createDrawerNavigator();
@@ -45,6 +46,7 @@ const AppDrawer = props => {
       />
       <Drawer.Screen name="Category" component={Categories} />
       <Drawer.Screen name="Orders" component={Orders} />
+      <Drawer.Screen name="OrderDetails" component={OrderDetails} />
       <Drawer.Screen name="Wishlist" component={Wishlist} />
       <Drawer.Screen name="Account" component={Account} />
       <Drawer.Screen name="Shop" component={Shop} />
@@ -82,7 +84,7 @@ const AppFooter = () => {
 const AppStack = createNativeStackNavigator();
 const AppNavigation = () => {
   const [loading, setLoading] = useState(true);
-  const {isLoggedIn} = useSelector(state => state);
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
 
   
   useEffect(() => {
