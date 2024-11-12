@@ -126,7 +126,7 @@ const AddAddress = () => {
       description: 'You are paying to StylishNova',
       image: 'https://i.imgur.com/3g7nmJC.png',
       currency: 'INR',
-      key: '**********************', // Your api key
+      key: '*******************', // Your api key
       amount: parseInt(total, 10) * 100,
       name: 'StylishNova',
       prefill: {
@@ -165,13 +165,10 @@ const AddAddress = () => {
         <GooglePlacesAutocomplete
           placeholder="Search Location"
           currentLocation={true}
-          // enableHighAccuracyLocation={true}
           fetchDetails={true}
-          // timeout={5000}
-          // maximumAge={10000}
           currentLocationLabel="Current Location"
           query={{
-            key: '**************',
+            key: '*********************************',
             language: 'en',
           }}
           styles={{

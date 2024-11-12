@@ -41,9 +41,10 @@ const style = (width, height) =>
       resizeMode: 'contain',
     },
     textInput: {
+      flex:1,
       fontFamily: 'Poppins-Regular',
       fontSize: 14,
-      width:width * 0.60,
+      width:'80%',
       marginLeft:width * 0.012,
       color:'#3e3d53'
     },

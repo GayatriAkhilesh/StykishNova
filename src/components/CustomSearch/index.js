@@ -31,13 +31,14 @@ const CustomSearch = props => {
             selectionColor={'#48301f'}
             onChangeText={text => onChangeText(text)}
           />
-        </View>
-        {mike ? (
+          {mike ? (
           <Image
             source={require('../../assets/images/mic-home.png')}
             style={responsiveStyle.searchIcon}
           />
         ) : null}
+        </View>
+        
       </View>
       {filter ? <Text style={responsiveStyle.filter}>Filter</Text> : null}
     </View>

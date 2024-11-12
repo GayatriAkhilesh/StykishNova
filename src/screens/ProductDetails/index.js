@@ -13,8 +13,9 @@ import ProductReview from './Components/ProductReview';
 import DeliveryInfo from './Components/DeliveryInfo';
 import ProductScroll from '../../components/ProductScroll';
 import firestore from '@react-native-firebase/firestore';
-import {updateCartCount} from '../../storage/action';
+import {updateCartCount, updateWishIds} from '../../storage/action';
 import {useDispatch, useSelector} from 'react-redux';
+import Snackbar from 'react-native-snackbar';
 
 const ProductDetails = () => {
   const dimensions = useDimensionContext();
@@ -34,6 +35,8 @@ const ProductDetails = () => {
   const [qun, setQun] = useState(1);
   const userId = useSelector(state => state.userId);
   const cartCount = useSelector(state => state.cartCount);
+  const wishIds = useSelector(state => state.wishIds);
+
 
   useEffect(() => {
     navigation.setOptions({
@@ -98,12 +101,69 @@ const ProductDetails = () => {
       });
   };
 
+  const addTowishlist = productDetails => {
+    firestore()
+      .collection('Wishlist')
+      .where('userId', '==', userId)
+      .where('productId', '==', productDetails.id)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          firestore()
+            .collection('Wishlist')
+            .add({
+              created: '' + Date.now() + '',
+              updated: '' + Date.now() + '',
+              description: productDetails.description,
+              name: productDetails.name,
+              price: productDetails.price,
+              quantity: 1,
+              userId: userId,
+              image: productDetails.image,
+              categoryId: productDetails.categoryId,
+              productId: productDetails.id,
+            })
+            .then(resp => {
+              dispatch(updateWishIds([...wishIds, productDetails.id]));
+
+              Snackbar.show({
+                text: 'Item has been added to the wishlist.',
+                duration: Snackbar.LENGTH_LONG,
+                backgroundColor: 'green',
+                textColor: 'white',
+              });
+            });
+        } else {
+          Snackbar.show({
+            text: 'Item already exist in your Wishlist!',
+            duration: Snackbar.LENGTH_LONG,
+            backgroundColor: '#d20a2e',
+            textColor: 'white',
+          });
+        }
+      });
+  };
+
   return (
     <View>
       <ScrollView ref={scrollRef}>
         <View style={responsiveStyle.heart}>
-          {/* <FontAwesome name="heart" size={25} color="#d20a2e" /> */}
-          <FontAwesome name="heart-o" size={25} color="#d20a2e" />
+        <TouchableOpacity onPress={() => addTowishlist(productDetailsObj)}>
+                  <Image
+                    source={
+                      wishIds.includes(productDetailsObj.id)
+                        ? require('../../assets/images/wishlist-product.png')
+                        : require('../../assets/images/wishlist-product-outline.png')
+                    }
+                    style={{
+                      width: 25,
+                      height: 25,
+                      resizeMode: 'contain',
+                      alignSelf: 'flex-end',
+                      marginRight:10,
+                    }}
+                  />
+                </TouchableOpacity>
         </View>
 
         <Image

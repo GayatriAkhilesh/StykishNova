@@ -4,7 +4,7 @@ import {Text, View, Image, FlatList, TouchableOpacity} from 'react-native';
 import {useDimensionContext} from '../../context';
 import CustomSearch from '../../components/CustomSearch';
 import CommonHeaderLeft from '../../components/CommonHeaderLeft';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {useSelector} from 'react-redux';
 
@@ -14,6 +14,13 @@ const Orders = () => {
   const responsiveStyle = style(dimension.windowWidth, dimension.windowHeight);
   const [ordersArray, setOrdersArray] = useState([]);
   const userId = useSelector(state => state.userId);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      getOrders();
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     getOrders();
@@ -28,11 +35,9 @@ const Orders = () => {
       .where('userId', '==', userId)
       .get()
       .then(snapShot => {
-
         if (snapShot.empty) {
           setOrdersArray([]);
         } else {
-
           const objArray = [];
           snapShot?.docs.forEach(document => {
             if (document.exists) {
@@ -70,7 +75,7 @@ const Orders = () => {
   };
 
   const navigateToDetails = item => {
-    navigation.navigate('OrderDetails', {item:item});
+    navigation.navigate('OrderDetails', {item: item});
   };
 
   return (
@@ -98,7 +103,7 @@ const Orders = () => {
         renderItem={({item}) => {
           return (
             <TouchableOpacity
-              onPress={() =>navigateToDetails(item)}
+              onPress={() => navigateToDetails(item)}
               style={responsiveStyle.flatView}>
               <View style={responsiveStyle.innerView}>
                 <View>

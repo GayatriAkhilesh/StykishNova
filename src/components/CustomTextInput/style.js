@@ -15,7 +15,8 @@ const style= StyleSheet.create({
         borderColor:'#845b49',
     },
     textInput:{
-        width:width * 0.7,
+        flex:1,
+        width:'80%',
         color:'black',
         fontSize: 14,
         fontFamily: 'Poppins-Regular',

@@ -54,7 +54,6 @@ const AppDrawer = props => {
       <Drawer.Screen name="Review" component={Review} />
       <Drawer.Screen name="AddAddress" component={AddAddress} />
       {/* <Drawer.Screen name="TestGeolocation" component={TestGeolocation} /> */}
-
     </Drawer.Navigator>
   );
 };
@@ -67,6 +66,7 @@ const AppFooter = () => {
       screenOptions={{
         headerTitleAlign: 'left',
         headerTitleStyle: style.title,
+       
       }}>
       <Footer.Screen
         name="Home"
@@ -86,7 +86,6 @@ const AppNavigation = () => {
   const [loading, setLoading] = useState(true);
   const isLoggedIn = useSelector(state => state.isLoggedIn);
 
-  
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
